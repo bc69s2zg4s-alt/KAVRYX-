@@ -1,241 +1,119 @@
 <!DOCTYPE html>
 <html lang="ru">
-
 <head>
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-    >
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#11151a">
-
     <title>KAVRYX</title>
-
     <link rel="stylesheet" href="css/main.css">
 </head>
-
 <body>
-
     <div id="app">
-
-        <!-- =========================
-             ГЛАВНОЕ МЕНЮ
-             ========================= -->
-
+        <!-- ГЛАВНОЕ МЕНЮ -->
         <main id="mainMenu" class="screen active">
-
             <div class="world-background">
-
                 <div class="sky"></div>
-
                 <div class="moon"></div>
-
                 <div class="mountains mountains-back"></div>
                 <div class="mountains mountains-front"></div>
-
                 <div class="ground"></div>
-
                 <!-- Поселение -->
                 <div class="settlement">
-
                     <div class="house house-large">
                         <div class="house-roof"></div>
                         <div class="house-body"></div>
                         <div class="house-door"></div>
                         <div class="house-window"></div>
                     </div>
-
                     <div class="house house-small">
                         <div class="house-roof"></div>
                         <div class="house-body"></div>
                         <div class="house-door"></div>
                     </div>
-
                     <div class="tower">
                         <div class="tower-roof"></div>
                         <div class="tower-body"></div>
                         <div class="tower-window"></div>
                     </div>
-
                     <div class="fire">
                         <span></span>
                         <span></span>
                         <span></span>
                     </div>
-
                 </div>
-
                 <div class="dark-overlay"></div>
-
             </div>
-
-
-            <!-- =========================
-                 ИНТЕРФЕЙС МЕНЮ
-                 ========================= -->
-
+            <!-- ИНТЕРФЕЙС МЕНЮ -->
             <div class="menu-interface">
-
                 <div class="logo-container">
-
-                    <div class="logo-shadow">
-                        KAVRYX
-                    </div>
-
-                    <h1 class="game-logo">
-                        KAVRYX
-                    </h1>
-
-                    <div class="logo-subtitle">
-                        SURVIVE • BUILD • CONQUER
-                    </div>
-
+                    <div class="logo-shadow">KAVRYX</div>
+                    <h1 class="game-logo">KAVRYX</h1>
+                    <div class="logo-subtitle">SURVIVE • BUILD • CONQUER</div>
                 </div>
-
-
                 <div class="menu-buttons">
-
-                    <button
-                        class="menu-button primary"
-                        id="playButton"
-                    >
+                    <button class="menu-button primary" id="playButton">
                         <span>ИГРАТЬ</span>
                     </button>
-
-
-                    <button
-                        class="menu-button"
-                        id="shopButton"
-                    >
+                    <button class="menu-button" id="shopButton">
                         <span>МАГАЗИН</span>
                     </button>
-
-
-                    <button
-                        class="menu-button"
-                        id="achievementsButton"
-                    >
+                    <button class="menu-button" id="achievementsButton">
                         <span>ДОСТИЖЕНИЯ</span>
                     </button>
-
-
-                    <button
-                        class="menu-button"
-                        id="settingsButton"
-                    >
+                    <button class="menu-button" id="settingsButton">
                         <span>НАСТРОЙКИ</span>
                     </button>
-
-
-                    <button
-                        class="menu-button"
-                        id="supportButton"
-                    >
+                    <button class="menu-button" id="supportButton">
                         <span>ПОДДЕРЖКА</span>
                     </button>
-
                 </div>
-
-
-                <div class="version">
-                    KAVRYX • EARLY DEVELOPMENT
-                </div>
-
+                <div class="version">KAVRYX • EARLY DEVELOPMENT</div>
             </div>
-
         </main>
-
-
-        <!-- =========================
-             ИГРОВОЙ ЭКРАН
-             ========================= -->
-
-     <main id="gameScreen" class="screen">
-
-    <canvas id="gameCanvas"></canvas>
-
-    <div class="game-ui">
-
-        <!-- Верхняя панель -->
-
-        <div class="top-bar">
-
-            <div class="level-panel">
-                <span class="ui-label">УРОВЕНЬ</span>
-                <span id="levelValue">1</span>
-            </div>
-
-            <div class="currency-panel">
-
-                <div class="currency">
-                    <span class="currency-icon gold-icon"></span>
-                    <span id="goldValue">0</span>
+        <!-- ИГРОВОЙ ЭКРАН -->
+        <main id="gameScreen" class="screen">
+            <canvas id="gameCanvas"></canvas>
+            <div class="game-ui">
+                <!-- Верхняя панель -->
+                <div class="top-bar">
+                    <div class="level-panel">
+                        <span class="ui-label">УРОВЕНЬ</span>
+                        <span id="levelValue">1</span>
+                    </div>
+                    <div class="currency-panel">
+                        <div class="currency">
+                            <span class="currency-icon gold-icon"></span>
+                            <span id="goldValue">0</span>
+                        </div>
+                        <div class="currency">
+                            <span class="currency-icon crystal-icon"></span>
+                            <span id="crystalValue">0</span>
+                        </div>
+                    </div>
+                    <button id="pauseButton" class="game-button pause-button" type="button">II</button>
                 </div>
-
-                <div class="currency">
-                    <span class="currency-icon crystal-icon"></span>
-                    <span id="crystalValue">0</span>
+                <!-- Нижняя панель -->
+                <div class="bottom-bar">
+                    <button id="settlementButton" class="game-button action-button" type="button">
+                        <span class="button-icon">⌂</span>
+                        <span>ПОСЕЛЕНИЕ</span>
+                    </button>
+                    <button id="weaponsButton" class="game-button action-button" type="button">
+                        <span class="button-icon">◆</span>
+                        <span>ОРУЖИЕ</span>
+                    </button>
+                    <button id="craftingButton" class="game-button action-button" type="button">
+                        <span class="button-icon">✦</span>
+                        <span>КРАФТ</span>
+                    </button>
                 </div>
-
             </div>
-
-            <button
-                id="pauseButton"
-                class="game-button pause-button"
-                type="button"
-            >
-                II
-            </button>
-
-        </div>
-
-
-        <!-- Нижняя панель -->
-
-        <div class="bottom-bar">
-
-            <button
-                id="settlementButton"
-                class="game-button action-button"
-                type="button"
-            >
-                <span class="button-icon">⌂</span>
-                <span>ПОСЕЛЕНИЕ</span>
-            </button>
-
-            <button
-                id="weaponsButton"
-                class="game-button action-button"
-                type="button"
-            >
-                <span class="button-icon">◆</span>
-                <span>ОРУЖИЕ</span>
-            </button>
-
-            <button
-                id="craftingButton"
-                class="game-button action-button"
-                type="button"
-            >
-                <span class="button-icon">✦</span>
-                <span>КРАФТ</span>
-            </button>
-
-        </div>
-
+        </main>
+        <script src="js/main.js"></script>
+        <script src="js/gameState.js"></script>
+        <script src="js/game.js"></script>
+        <script src="js/hud.js"></script>
+        <script src="js/pause.js"></script>
     </div>
-
-</main>
-
-
-    <script src="js/main.js"></script>
-    <script src="js/gameState.js"></script>
-    <script src="js/game.js"></script>
-    <script src="js/hud.js"></script>
-    <script src="js/pause.js"></script>
-
 </body>
-
 </html>
