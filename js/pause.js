@@ -2,8 +2,8 @@
 
 const PauseSystem = {
     paused: false,
-
     button: document.getElementById("pauseButton"),
+    overlay: null,
 
     init() {
         this.button.addEventListener("click", () => {
@@ -24,29 +24,25 @@ const PauseSystem = {
     },
 
     showPauseOverlay() {
-        let overlay = document.getElementById("pauseOverlay");
-
-        if (!overlay) {
-            overlay = document.createElement("div");
-            overlay.id = "pauseOverlay";
-            overlay.className = "pause-overlay";
-            overlay.innerHTML = `
+        if (!this.overlay) {
+            this.overlay = document.createElement("div");
+            this.overlay.id = "pauseOverlay";
+            this.overlay.className = "pause-overlay";
+            this.overlay.innerHTML = `
                 <div class="pause-panel">
                     <div class="pause-title">ПАУЗА</div>
                     <div class="pause-subtitle">ИГРА ПРИОСТАНОВЛЕНА</div>
                 </div>
             `;
-            document.getElementById("gameScreen").appendChild(overlay);
+            document.getElementById("gameScreen").appendChild(this.overlay);
         }
 
-        overlay.classList.add("active");
+        this.overlay.classList.add("active");
     },
 
     hidePauseOverlay() {
-        const overlay = document.getElementById("pauseOverlay");
-
-        if (overlay) {
-            overlay.classList.remove("active");
+        if (this.overlay) {
+            this.overlay.classList.remove("active");
         }
     }
 };
