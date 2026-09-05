@@ -683,3 +683,190 @@ body {
         width: 350px;
     }
 }
+
+.game-ui {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    pointer-events: none;
+    font-family: "Courier New", monospace;
+}
+
+.top-bar {
+    position: absolute;
+    top: 18px;
+    left: 18px;
+    right: 18px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    pointer-events: none;
+}
+
+.level-panel,
+.currency-panel,
+.game-button {
+    border: 3px solid #090b0c;
+    background: rgba(20, 24, 25, 0.92);
+    box-shadow: 5px 5px 0 #090b0c;
+}
+
+.level-panel {
+    min-width: 92px;
+    padding: 8px 12px;
+    display: flex;
+    flex-direction: column;
+    color: #e2dfc8;
+}
+
+.ui-label {
+    font-size: 10px;
+    letter-spacing: 1px;
+    opacity: 0.7;
+}
+
+#levelValue {
+    margin-top: 2px;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.currency-panel {
+    display: flex;
+    gap: 6px;
+    padding: 7px;
+}
+
+.currency {
+    min-width: 72px;
+    height: 36px;
+    padding: 0 9px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #e2dfc8;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.currency-icon {
+    width: 16px;
+    height: 16px;
+    display: block;
+    border: 2px solid #090b0c;
+    transform: rotate(45deg);
+}
+
+.gold-icon {
+    background: #c49a35;
+}
+
+.crystal-icon {
+    background: #7195a3;
+}
+
+.pause-button {
+    margin-left: auto;
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    color: #e2dfc8;
+    font-size: 18px;
+    font-weight: bold;
+    pointer-events: auto;
+}
+
+.game-button {
+    cursor: pointer;
+    transition: transform 0.08s ease;
+}
+
+.game-button:active {
+    transform: translate(4px, 4px);
+    box-shadow: 1px 1px 0 #090b0c;
+}
+
+.bottom-bar {
+    position: absolute;
+    left: 18px;
+    right: 18px;
+    bottom: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    pointer-events: none;
+}
+
+.action-button {
+    min-width: 112px;
+    min-height: 58px;
+    padding: 7px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    color: #e2dfc8;
+    font-family: inherit;
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    pointer-events: auto;
+}
+
+.button-icon {
+    font-size: 20px;
+    line-height: 20px;
+}
+
+@media (max-width: 520px) {
+    .top-bar {
+        top: 12px;
+        left: 12px;
+        right: 12px;
+        gap: 7px;
+    }
+
+    .level-panel {
+        min-width: 68px;
+        padding: 6px 8px;
+    }
+
+    .currency-panel {
+        padding: 5px;
+        gap: 3px;
+    }
+
+    .currency {
+        min-width: 55px;
+        height: 32px;
+        padding: 0 6px;
+        gap: 6px;
+        font-size: 14px;
+    }
+
+    .currency-icon {
+        width: 13px;
+        height: 13px;
+    }
+
+    .pause-button {
+        width: 42px;
+        height: 42px;
+    }
+
+    .bottom-bar {
+        left: 10px;
+        right: 10px;
+        bottom: 12px;
+        gap: 6px;
+    }
+
+    .action-button {
+        min-width: 0;
+        flex: 1;
+        min-height: 54px;
+        padding: 5px;
+        font-size: 9px;
+    }
+}
