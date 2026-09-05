@@ -69,6 +69,8 @@ const Settlement={
         ctx.restore();
     },
     drawGround(ctx,width,height,centerX,centerY){
+    if(window.KAVRYXSettlementGround)KAVRYXSettlementGround.draw(ctx,width,height,centerX,centerY);
+},
         const size=Math.min(width*.82,700);
         ctx.fillStyle="#1b2020";
         ctx.fillRect(centerX-size/2,centerY-40,size,size*.62);
