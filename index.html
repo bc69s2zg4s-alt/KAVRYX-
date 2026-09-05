@@ -9,7 +9,6 @@
 </head>
 <body>
     <div id="app">
-        <!-- ГЛАВНОЕ МЕНЮ -->
         <main id="mainMenu" class="screen active">
             <div class="world-background">
                 <div class="sky"></div>
@@ -17,7 +16,6 @@
                 <div class="mountains mountains-back"></div>
                 <div class="mountains mountains-front"></div>
                 <div class="ground"></div>
-                <!-- Поселение -->
                 <div class="settlement">
                     <div class="house house-large">
                         <div class="house-roof"></div>
@@ -43,7 +41,6 @@
                 </div>
                 <div class="dark-overlay"></div>
             </div>
-            <!-- ИНТЕРФЕЙС МЕНЮ -->
             <div class="menu-interface">
                 <div class="logo-container">
                     <div class="logo-shadow">KAVRYX</div>
@@ -51,55 +48,49 @@
                     <div class="logo-subtitle">SURVIVE • BUILD • CONQUER</div>
                 </div>
                 <div class="menu-buttons">
-                    <button class="menu-button primary" id="playButton">
-                        <span>ИГРАТЬ</span>
-                    </button>
-                    <button class="menu-button" id="shopButton">
-                        <span>МАГАЗИН</span>
-                    </button>
-                    <button class="menu-button" id="achievementsButton">
-                        <span>ДОСТИЖЕНИЯ</span>
-                    </button>
-                    <button class="menu-button" id="settingsButton">
-                        <span>НАСТРОЙКИ</span>
-                    </button>
-                    <button class="menu-button" id="supportButton">
-                        <span>ПОДДЕРЖКА</span>
-                    </button>
+                    <button class="menu-button primary" id="playButton" type="button"><span>ИГРАТЬ</span></button>
+                    <button class="menu-button" id="shopButton" type="button"><span>МАГАЗИН</span></button>
+                    <button class="menu-button" id="achievementsButton" type="button"><span>ДОСТИЖЕНИЯ</span></button>
+                    <button class="menu-button" id="settingsButton" type="button"><span>НАСТРОЙКИ</span></button>
+                    <button class="menu-button" id="supportButton" type="button"><span>ПОДДЕРЖКА</span></button>
                 </div>
                 <div class="version">KAVRYX • EARLY DEVELOPMENT</div>
             </div>
         </main>
-        <!-- ЭКРАН НАСТРОЕК -->
-<main id="settingsScreen" class="screen">
-    <div class="settings-panel">
-        <div class="settings-title">НАСТРОЙКИ</div>
-        <div class="settings-list">
-            <button class="settings-button" id="graphicsSettingButton" type="button">
-                <span>ГРАФИКА</span>
-                <span id="graphicsSetting">ВКЛ</span>
-            </button>
-            <button class="settings-button" id="soundSettingButton" type="button">
-                <span>ЗВУК</span>
-                <span id="soundSetting">ВКЛ</span>
-            </button>
-            <button class="settings-button" id="musicSettingButton" type="button">
-                <span>МУЗЫКА</span>
-                <span id="musicSetting">ВКЛ</span>
-            </button>
-            <button class="settings-button" id="vibrationSettingButton" type="button">
-                <span>ВИБРАЦИЯ</span>
-                <span id="vibrationSetting">ВКЛ</span>
-            </button>
-        </div>
-        <button class="settings-back-button" id="settingsBackButton" type="button">НАЗАД</button>
-    </div>
-</main>
-        <!-- ИГРОВОЙ ЭКРАН -->
+        <main id="settingsScreen" class="screen">
+            <div class="settings-panel">
+                <div class="settings-title">НАСТРОЙКИ</div>
+                <div class="settings-list">
+                    <div class="settings-row graphics-row">
+                        <span>ГРАФИКА</span>
+                        <div class="graphics-control">
+                            <input id="graphicsSettingButton" class="graphics-slider" type="range" min="1" max="3" step="1" value="2">
+                            <div class="graphics-labels">
+                                <span>НИЗКОЕ</span>
+                                <span>СРЕДНЕЕ</span>
+                                <span>ВЫСОКОЕ</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="settings-button" id="soundSettingButton" type="button">
+                        <span>ЗВУК</span>
+                        <span id="soundSetting">ВКЛ</span>
+                    </button>
+                    <button class="settings-button" id="musicSettingButton" type="button">
+                        <span>МУЗЫКА</span>
+                        <span id="musicSetting">ВКЛ</span>
+                    </button>
+                    <button class="settings-button" id="vibrationSettingButton" type="button">
+                        <span>ВИБРАЦИЯ</span>
+                        <span id="vibrationSetting">ВКЛ</span>
+                    </button>
+                </div>
+                <button class="settings-back-button" id="settingsBackButton" type="button">НАЗАД</button>
+            </div>
+        </main>
         <main id="gameScreen" class="screen">
             <canvas id="gameCanvas"></canvas>
             <div class="game-ui">
-                <!-- Верхняя панель -->
                 <div class="top-bar">
                     <div class="level-panel">
                         <span class="ui-label">УРОВЕНЬ</span>
@@ -117,7 +108,6 @@
                     </div>
                     <button id="pauseButton" class="game-button pause-button" type="button">II</button>
                 </div>
-                <!-- Нижняя панель -->
                 <div class="bottom-bar">
                     <button id="settlementButton" class="game-button action-button" type="button">
                         <span class="button-icon">⌂</span>
