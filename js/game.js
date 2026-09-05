@@ -167,30 +167,27 @@ function drawGameWorld() {
     }
 }
 
-
 /*
  * Основной игровой цикл.
  */
-
 function gameLoop() {
-
+    if (!GameState.running || GameState.paused) return;
     drawGameWorld();
-
-    requestAnimationFrame(
-        gameLoop
-    );
+    requestAnimationFrame(gameLoop);
 }
-
-
 /*
  * Запуск игрового Canvas.
  */
-
 function startGame() {
-
     resizeGameCanvas();
-
+    GameState.running = true;
+    GameState.paused = false;
     gameLoop();
 }
-
+/*
+ * Остановка игрового Canvas.
+ */
+function stopGame() {
+    GameState.running = false;
+}
 startGame();
