@@ -6,14 +6,15 @@ const PauseSystem = {
         this.button.addEventListener("click", () => this.toggle());
     },
     toggle() {
-        GameState.paused = !GameState.paused;
         if (GameState.paused) {
-            this.button.textContent = "▶";
-            this.showPauseOverlay();
-        } else {
-            this.button.textContent = "II";
-            this.hidePauseOverlay();
-        }
+    KAVRYXGame.pause();
+    this.button.textContent = "▶";
+    this.showPauseOverlay();
+} else {
+    KAVRYXGame.resume();
+    this.button.textContent = "II";
+    this.hidePauseOverlay();
+}
     },
     showPauseOverlay() {
         if (!this.overlay) {
