@@ -766,6 +766,8 @@ body {
 }
 
 .pause-button {
+    position: relative;
+    z-index: 30;
     margin-left: auto;
     width: 48px;
     height: 48px;
