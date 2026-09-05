@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    >
+    <title>KAVRYX</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <div id="app">
+        <main id="mainMenu" class="screen active">
+            <div class="menu-background"></div>
+            <div class="menu-content">
+                <h1 class="game-logo">KAVRYX</h1>
+                <div class="menu-buttons">
+                    <button class="menu-button" id="playButton">
+                        ИГРАТЬ
+                    </button>
+                    <button class="menu-button" id="shopButton">
+                        МАГАЗИН
+                    </button>
+                    <button class="menu-button" id="achievementsButton">
+                        ДОСТИЖЕНИЯ
+                    </button>
+                    <button class="menu-button" id="settingsButton">
+                        НАСТРОЙКИ
+                    </button>
+                    <button class="menu-button" id="supportButton">
+                        ПОДДЕРЖКА
+                    </button>
+                </div>
+            </div>
+        </main>
+        <main id="gameScreen" class="screen">
+            <canvas id="gameCanvas"></canvas>
+        </main>
+    </div>
+    <script src="js/main.js"></script>
+</body>
+</html>
