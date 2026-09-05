@@ -18,47 +18,45 @@ const Settlement = {
         const canvas=document.getElementById("gameCanvas");
         if(!canvas)return;
         canvas.addEventListener("pointerdown",(event)=>{
-    this.touch.active=true;
-    this.touch.x=event.clientX;
-    this.touch.y=event.clientY;
-    this.touch.startX=event.clientX;
-    this.touch.startY=event.clientY;
-    });
-        canvas.addEventListener("pointerup",(event)=>{
-    if(this.touch.active&&Math.hypot(event.clientX-this.touch.startX,event.clientY-this.touch.startY)<10)this.selectBuilding(event.clientX,event.clientY);
-    this.touch.active=false;
-    });
+            this.touch.active=true;
+            this.touch.x=event.clientX;
+            this.touch.y=event.clientY;
+            this.touch.startX=event.clientX;
+            this.touch.startY=event.clientY;
+        });
+        canvas.addEventListener("pointermove",(event)=>{
             if(!this.touch.active)return;
             this.camera.x=Math.max(-300,Math.min(300,this.camera.x-(event.clientX-this.touch.x)/this.camera.zoom));
             this.camera.y=Math.max(-180,Math.min(180,this.camera.y-(event.clientY-this.touch.y)/this.camera.zoom));
             this.touch.x=event.clientX;
             this.touch.y=event.clientY;
         });
-        canvas.addEventListener("pointerup",()=>this.touch.active=false);
+        canvas.addEventListener("pointerup",(event)=>{
+            if(this.touch.active&&Math.hypot(event.clientX-this.touch.startX,event.clientY-this.touch.startY)<10)this.selectBuilding(event.clientX,event.clientY);
+            this.touch.active=false;
+        });
         canvas.addEventListener("pointercancel",()=>this.touch.active=false);
         canvas.addEventListener("pointerleave",()=>this.touch.active=false);
     },
-    draw(ctx,width,height){
     selectBuilding(screenX,screenY){
-    const canvas=document.getElementById("gameCanvas");
-    if(!canvas)return;
-    const rect=canvas.getBoundingClientRect();
-    const worldX=(screenX-rect.left-this.camera.x*0+0);
-    const worldY=(screenY-rect.top);
-    const centerX=canvas.clientWidth/2;
-    const centerY=canvas.clientHeight*.58;
-    const x=(worldX-centerX)/this.camera.zoom+this.camera.x;
-    const y=(worldY-centerY)/this.camera.zoom+this.camera.y;
-    this.selectedBuilding=null;
-    for(const building of this.buildings){
-        const width=building.type==="core"?160:building.type==="tower"?90:building.type==="workshop"?140:120;
-        const height=building.type==="tower"?150:110;
-        if(x>=building.x-width/2&&x<=building.x+width/2&&y>=building.y-height&&y<=building.y+30){
-            this.selectedBuilding=building.id;
-            break;
+        const canvas=document.getElementById("gameCanvas");
+        if(!canvas)return;
+        const rect=canvas.getBoundingClientRect();
+        const centerX=canvas.clientWidth/2;
+        const centerY=canvas.clientHeight*.58;
+        const x=(screenX-rect.left-centerX)/this.camera.zoom+this.camera.x;
+        const y=(screenY-rect.top-centerY)/this.camera.zoom+this.camera.y;
+        this.selectedBuilding=null;
+        for(const building of this.buildings){
+            const width=building.type==="core"?160:building.type==="tower"?90:building.type==="workshop"?140:120;
+            const height=building.type==="tower"?150:110;
+            if(x>=building.x-width/2&&x<=building.x+width/2&&y>=building.y-height&&y<=building.y+30){
+                this.selectedBuilding=building.id;
+                break;
+            }
         }
-    }
-},
+    },
+    draw(ctx,width,height){
         const centerX=width/2;
         const centerY=height*.58;
         ctx.save();
@@ -84,10 +82,10 @@ const Settlement = {
         const x=centerX+building.x;
         const y=centerY+building.y;
         if(this.selectedBuilding===building.id){
-    ctx.strokeStyle="#d9d8c5";
-    ctx.lineWidth=4;
-    ctx.strokeRect(x-75,y-155,150,180);
-    }
+            ctx.strokeStyle="#d9d8c5";
+            ctx.lineWidth=4;
+            ctx.strokeRect(x-75,y-155,150,180);
+        }
         if(building.type==="core")this.drawCore(ctx,x,y,building.level);
         if(building.type==="house")this.drawHouse(ctx,x,y,building.level);
         if(building.type==="tower")this.drawTower(ctx,x,y,building.level);
