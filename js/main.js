@@ -1,58 +1,29 @@
 "use strict";
-/*
- * KAVRYX
- * Главный файл запуска приложения.
- *
- * Здесь пока находится только управление
- * переходами между основными экранами.
- */
 const mainMenu = document.getElementById("mainMenu");
 const gameScreen = document.getElementById("gameScreen");
+const settingsScreen = document.getElementById("settingsScreen");
 const playButton = document.getElementById("playButton");
 const shopButton = document.getElementById("shopButton");
 const achievementsButton = document.getElementById("achievementsButton");
 const settingsButton = document.getElementById("settingsButton");
 const supportButton = document.getElementById("supportButton");
-/*
- * Переключение экранов.
- *
- * screenToShow — элемент, который необходимо показать.
- */
+const settingsBackButton = document.getElementById("settingsBackButton");
+const settingButtons = {
+    graphics: document.getElementById("graphicsSettingButton"),
+    sound: document.getElementById("soundSettingButton"),
+    music: document.getElementById("musicSettingButton"),
+    vibration: document.getElementById("vibrationSettingButton")
+};
 function showScreen(screenToShow) {
-    const screens = document.querySelectorAll(".screen");
-    screens.forEach((screen) => {
-        screen.classList.remove("active");
-    });
+    document.querySelectorAll(".screen").forEach((screen) => screen.classList.remove("active"));
     screenToShow.classList.add("active");
 }
-/*
- * Кнопка "Играть".
- *
- * Пока просто открываем игровой экран.
- * Сам игровой движок добавим отдельным этапом.
- */
-playButton.addEventListener("click", () => {
-    showScreen(gameScreen);
+playButton.addEventListener("click", () => showScreen(gameScreen));
+settingsButton.addEventListener("click", () => showScreen(settingsScreen));
+settingsBackButton.addEventListener("click", () => showScreen(mainMenu));
+Object.entries(settingButtons).forEach(([name, button]) => {
+    button.addEventListener("click", () => KAVRYXSettings.toggle(name));
 });
-/*
- * Остальные кнопки пока не подключаем.
- *
- * Для них позже появятся отдельные системы:
- *
- * shop.js
- * achievements.js
- * settings.js
- * support.js
- */
-shopButton.addEventListener("click", () => {
-    console.log("Магазин KAVRYX");
-});
-achievementsButton.addEventListener("click", () => {
-    console.log("Достижения KAVRYX");
-});
-settingsButton.addEventListener("click", () => {
-    console.log("Настройки KAVRYX");
-});
-supportButton.addEventListener("click", () => {
-    console.log("Поддержка KAVRYX");
-});
+shopButton.addEventListener("click", () => console.log("Магазин KAVRYX"));
+achievementsButton.addEventListener("click", () => console.log("Достижения KAVRYX"));
+supportButton.addEventListener("click", () => console.log("Поддержка KAVRYX"));
