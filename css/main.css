@@ -870,3 +870,52 @@ body {
         font-size: 9px;
     }
 }
+
+.pause-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 20;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(5, 7, 8, 0.72);
+    pointer-events: auto;
+}
+
+.pause-overlay.active {
+    display: flex;
+}
+
+.pause-panel {
+    min-width: 220px;
+    padding: 24px 30px;
+    border: 4px solid #090b0c;
+    background: rgba(25, 29, 30, 0.98);
+    box-shadow: 7px 7px 0 #090b0c;
+    text-align: center;
+}
+
+.pause-title {
+    color: #e2dfc8;
+    font-size: 28px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.pause-subtitle {
+    margin-top: 8px;
+    color: #8e928e;
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+@media (max-width: 520px) {
+    .pause-panel {
+        min-width: 190px;
+        padding: 20px 24px;
+    }
+
+    .pause-title {
+        font-size: 24px;
+    }
+}
