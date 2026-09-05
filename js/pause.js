@@ -8,14 +8,14 @@ const PauseSystem = {
     toggle() {
         GameState.paused = !GameState.paused;
         if (GameState.paused) {
-    KAVRYXGame.pause();
-    this.button.textContent = "▶";
-    this.showPauseOverlay();
-} else {
-    KAVRYXGame.resume();
-    this.button.textContent = "II";
-    this.hidePauseOverlay();
-}
+            KAVRYXGame.pause();
+            this.button.textContent = "▶";
+            this.showPauseOverlay();
+        } else {
+            KAVRYXGame.resume();
+            this.button.textContent = "II";
+            this.hidePauseOverlay();
+        }
     },
     showPauseOverlay() {
         if (!this.overlay) {
