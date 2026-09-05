@@ -6,6 +6,7 @@ const PauseSystem = {
         this.button.addEventListener("click", () => this.toggle());
     },
     toggle() {
+        GameState.paused = !GameState.paused;
         if (GameState.paused) {
     KAVRYXGame.pause();
     this.button.textContent = "▶";
