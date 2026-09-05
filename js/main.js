@@ -56,25 +56,3 @@ settingsButton.addEventListener("click", () => {
 supportButton.addEventListener("click", () => {
     console.log("Поддержка KAVRYX");
 });
-#gameScreen {
-    position: relative;
-}
-
-.game-ui {
-    z-index: 30;
-}
-
-.pause-overlay {
-    z-index: 40;
-    pointer-events: none;
-}
-
-.pause-panel {
-    pointer-events: none;
-}
-
-.pause-button {
-    position: relative;
-    z-index: 50;
-    pointer-events: auto;
-}
