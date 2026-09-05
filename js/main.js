@@ -56,3 +56,20 @@ settingsButton.addEventListener("click", () => {
 supportButton.addEventListener("click", () => {
     console.log("Поддержка KAVRYX");
 });
+.pause-overlay {
+    pointer-events: none;
+}
+
+.pause-overlay.active {
+    pointer-events: none;
+}
+
+.pause-panel {
+    pointer-events: none;
+}
+
+.pause-button {
+    position: relative;
+    z-index: 100;
+    pointer-events: auto;
+}
