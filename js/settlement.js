@@ -23,8 +23,8 @@ const Settlement = {
         });
         canvas.addEventListener("pointermove",(event)=>{
             if(!this.touch.active)return;
-            this.camera.x-=(event.clientX-this.touch.x)/this.camera.zoom;
-            this.camera.y-=(event.clientY-this.touch.y)/this.camera.zoom;
+            this.camera.x=Math.max(-300,Math.min(300,this.camera.x-(event.clientX-this.touch.x)/this.camera.zoom));
+            this.camera.y=Math.max(-180,Math.min(180,this.camera.y-(event.clientY-this.touch.y)/this.camera.zoom));
             this.touch.x=event.clientX;
             this.touch.y=event.clientY;
         });
