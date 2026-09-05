@@ -5,10 +5,10 @@ const Settlement={
     selectedBuilding:null,
     buildings:[
         {id:"core",type:"core",x:0,y:0,level:1},
-        {id:"house1",type:"house",x:-150,y:40,level:1},
-        {id:"house2",type:"house",x:150,y:55,level:1},
-        {id:"tower",type:"tower",x:230,y:-20,level:1},
-        {id:"workshop",type:"workshop",x:-260,y:15,level:1}
+        {id:"house1",type:"house",x:-230,y:55,level:1},
+        {id:"house2",type:"house",x:230,y:65,level:1},
+        {id:"tower",type:"tower",x:330,y:-35,level:1},
+        {id:"workshop",type:"workshop",x:-350,y:30,level:1}
     ],
     init(){
         this.buildings.forEach((building)=>building.level=Math.max(1,building.level));
