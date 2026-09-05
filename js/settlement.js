@@ -1,5 +1,5 @@
 "use strict";
-const Settlement = {
+const Settlement={
     camera:{x:0,y:0,zoom:1},
     touch:{active:false,x:0,y:0,startX:0,startY:0},
     selectedBuilding:null,
@@ -48,9 +48,9 @@ const Settlement = {
         const y=(screenY-rect.top-centerY)/this.camera.zoom+this.camera.y;
         this.selectedBuilding=null;
         for(const building of this.buildings){
-            const width=building.type==="core"?160:building.type==="tower"?90:building.type==="workshop"?140:120;
-            const height=building.type==="tower"?150:110;
-            if(x>=building.x-width/2&&x<=building.x+width/2&&y>=building.y-height&&y<=building.y+30){
+            const width=building.type==="core"?180:building.type==="tower"?110:building.type==="workshop"?155:135;
+            const height=building.type==="tower"?175:125;
+            if(x>=building.x-width/2&&x<=building.x+width/2&&y>=building.y-height&&y<=building.y+35){
                 this.selectedBuilding=building.id;
                 break;
             }
@@ -64,6 +64,7 @@ const Settlement = {
         ctx.scale(this.camera.zoom,this.camera.zoom);
         ctx.translate(-this.camera.x,-this.camera.y);
         this.drawGround(ctx,width,height,0,0);
+        this.drawRoads(ctx,0,0);
         this.buildings.forEach((building)=>this.drawBuilding(ctx,building,0,0));
         ctx.restore();
     },
@@ -71,88 +72,210 @@ const Settlement = {
         const size=Math.min(width*.82,700);
         ctx.fillStyle="#1b2020";
         ctx.fillRect(centerX-size/2,centerY-40,size,size*.62);
-        ctx.strokeStyle="rgba(0,0,0,.28)";
+        ctx.strokeStyle="rgba(0,0,0,.25)";
         ctx.lineWidth=2;
         const block=32;
         for(let x=centerX-size/2;x<centerX+size/2;x+=block){
             for(let y=centerY-40;y<centerY-40+size*.62;y+=block)ctx.strokeRect(x,y,block,block);
         }
+        ctx.fillStyle="#242a28";
+        ctx.fillRect(centerX-size/2,centerY+size*.35,size,24);
+    },
+    drawRoads(ctx,x,y){
+        ctx.fillStyle="#252724";
+        ctx.fillRect(x-320,y+20,640,34);
+        ctx.fillRect(x-18,y-250,36,300);
+        ctx.fillStyle="#30322d";
+        for(let i=-300;i<300;i+=48){
+            ctx.fillRect(x+i,y+27,30,5);
+        }
+        for(let i=-230;i<40;i+=48){
+            ctx.fillRect(x-13,y+i,5,30);
+        }
     },
     drawBuilding(ctx,building,centerX,centerY){
         const x=centerX+building.x;
         const y=centerY+building.y;
-        if(this.selectedBuilding===building.id){
-            ctx.strokeStyle="#d9d8c5";
-            ctx.lineWidth=4;
-            ctx.strokeRect(x-75,y-155,150,180);
-        }
         if(building.type==="core")this.drawCore(ctx,x,y,building.level);
         if(building.type==="house")this.drawHouse(ctx,x,y,building.level);
         if(building.type==="tower")this.drawTower(ctx,x,y,building.level);
         if(building.type==="workshop")this.drawWorkshop(ctx,x,y,building.level);
+        if(this.selectedBuilding===building.id)this.drawSelection(ctx,x,y,building.type);
+    },
+    drawSelection(ctx,x,y,type){
+        const width=type==="core"?190:type==="tower"?120:type==="workshop"?165:145;
+        const height=type==="tower"?190:145;
+        ctx.strokeStyle="#d9d8c5";
+        ctx.lineWidth=3;
+        ctx.setLineDash([8,5]);
+        ctx.strokeRect(x-width/2,y-height,width,height);
+        ctx.setLineDash([]);
     },
     drawCore(ctx,x,y,level){
-        ctx.fillStyle="#343b3d";
-        ctx.fillRect(x-65,y-70,130,100);
-        ctx.fillStyle="#4a5355";
-        ctx.fillRect(x-78,y-82,156,18);
         ctx.fillStyle="#171a1b";
-        ctx.fillRect(x-20,y-20,40,50);
-        ctx.fillStyle="#d9d8c5";
-        ctx.fillRect(x-38,y-52,28,24);
-        ctx.fillRect(x+10,y-52,28,24);
+        ctx.fillRect(x-86,y-8,172,38);
+        ctx.fillStyle="#343a3b";
+        ctx.fillRect(x-72,y-88,144,118);
+        ctx.fillStyle="#454d4d";
+        ctx.fillRect(x-82,y-100,164,18);
+        ctx.fillStyle="#252a2b";
+        ctx.fillRect(x-92,y-112,32,124);
+        ctx.fillRect(x+60,y-112,32,124);
+        ctx.fillStyle="#3d4444";
+        ctx.fillRect(x-100,y-122,48,16);
+        ctx.fillRect(x+52,y-122,48,16);
+        ctx.fillStyle="#202425";
+        ctx.fillRect(x-22,y-35,44,65);
         ctx.fillStyle="#8d7548";
-        ctx.fillRect(x-12,y-4,24,34);
-        this.drawLevel(ctx,x,y-105,level);
+        ctx.fillRect(x-15,y-28,30,58);
+        ctx.fillStyle="#b9a86a";
+        ctx.fillRect(x-50,y-67,32,28);
+        ctx.fillRect(x+18,y-67,32,28);
+        ctx.fillStyle="#101314";
+        ctx.fillRect(x-45,y-62,22,18);
+        ctx.fillRect(x+23,y-62,22,18);
+        ctx.fillStyle="#596060";
+        ctx.fillRect(x-58,y-92,116,8);
+        ctx.fillStyle="#292e2f";
+        ctx.fillRect(x-52,y-105,20,14);
+        ctx.fillRect(x+32,y-105,20,14);
+        this.drawBanner(ctx,x,y-142);
+        this.drawLevel(ctx,x,y-155,level);
+    },
+    drawBanner(ctx,x,y){
+        ctx.fillStyle="#111415";
+        ctx.fillRect(x-2,y,4,40);
+        ctx.fillStyle="#8d7548";
+        ctx.fillRect(x-28,y+4,26,22);
+        ctx.fillStyle="#c3b982";
+        ctx.fillRect(x-24,y+8,18,4);
+        ctx.fillRect(x-24,y+16,13,4);
     },
     drawHouse(ctx,x,y,level){
-        ctx.fillStyle="#303738";
-        ctx.fillRect(x-45,y-45,90,65);
-        ctx.fillStyle="#24292a";
+        ctx.fillStyle="#171919";
+        ctx.fillRect(x-70,y-5,140,30);
+        ctx.fillStyle="#403a32";
+        ctx.fillRect(x-58,y-70,116,95);
+        ctx.fillStyle="#594d3e";
+        ctx.fillRect(x-50,y-62,100,87);
+        ctx.fillStyle="#242526";
         ctx.beginPath();
-        ctx.moveTo(x-58,y-45);
-        ctx.lineTo(x,y-82);
-        ctx.lineTo(x+58,y-45);
+        ctx.moveTo(x-75,y-62);
+        ctx.lineTo(x,y-112);
+        ctx.lineTo(x+75,y-62);
         ctx.closePath();
         ctx.fill();
+        ctx.fillStyle="#343433";
+        ctx.beginPath();
+        ctx.moveTo(x-66,y-63);
+        ctx.lineTo(x,y-102);
+        ctx.lineTo(x+66,y-63);
+        ctx.closePath();
+        ctx.fill();
+        ctx.fillStyle="#51483c";
+        ctx.fillRect(x-58,y-57,116,9);
+        ctx.fillStyle="#242323";
+        ctx.fillRect(x-17,y-5,34,30);
+        ctx.fillStyle="#654e31";
+        ctx.fillRect(x-11,y-2,22,27);
         ctx.fillStyle="#c3b982";
-        ctx.fillRect(x-30,y-25,22,20);
-        ctx.fillRect(x+8,y-25,22,20);
-        ctx.fillStyle="#171a1b";
-        ctx.fillRect(x-10,y-5,20,25);
-        this.drawLevel(ctx,x,y-95,level);
+        ctx.fillRect(x-42,y-38,27,24);
+        ctx.fillRect(x+15,y-38,27,24);
+        ctx.fillStyle="#8d7548";
+        ctx.fillRect(x-38,y-34,19,16);
+        ctx.fillRect(x+19,y-34,19,16);
+        ctx.fillStyle="#252626";
+        ctx.fillRect(x-3,y-97,6,24);
+        ctx.fillStyle="#42413b";
+        ctx.fillRect(x-9,y-108,18,13);
+        ctx.fillStyle="#302d28";
+        ctx.fillRect(x-62,y-10,9,30);
+        ctx.fillRect(x+53,y-10,9,30);
+        this.drawLevel(ctx,x,y-125,level);
     },
     drawTower(ctx,x,y,level){
-        ctx.fillStyle="#353c3e";
-        ctx.fillRect(x-28,y-105,56,125);
-        ctx.fillStyle="#252b2c";
+        ctx.fillStyle="#171919";
+        ctx.fillRect(x-55,y-4,110,30);
+        ctx.fillStyle="#3b4140";
+        ctx.fillRect(x-42,y-130,84,156);
+        ctx.fillStyle="#4a504e";
+        ctx.fillRect(x-33,y-120,66,146);
+        ctx.fillStyle="#292d2d";
+        ctx.fillRect(x-52,y-138,104,18);
+        ctx.fillStyle="#353a39";
+        ctx.fillRect(x-60,y-148,22,30);
+        ctx.fillRect(x+38,y-148,22,30);
+        ctx.fillStyle="#262a2a";
+        ctx.fillRect(x-54,y-158,30,12);
+        ctx.fillRect(x+24,y-158,30,12);
+        ctx.fillStyle="#b9a86a";
+        ctx.fillRect(x-14,y-105,28,22);
+        ctx.fillRect(x-14,y-60,28,22);
+        ctx.fillRect(x-14,y-15,28,22);
+        ctx.fillStyle="#181b1b";
+        ctx.fillRect(x-8,y-100,16,12);
+        ctx.fillRect(x-8,y-55,16,12);
+        ctx.fillRect(x-8,y-10,16,12);
+        ctx.fillStyle="#252827";
+        ctx.fillRect(x-50,y-174,100,16);
+        ctx.fillStyle="#3f4442";
+        ctx.fillRect(x-42,y-190,84,18);
+        ctx.fillStyle="#171919";
         ctx.beginPath();
-        ctx.moveTo(x-42,y-105);
-        ctx.lineTo(x,y-135);
-        ctx.lineTo(x+42,y-105);
+        ctx.moveTo(x-48,y-190);
+        ctx.lineTo(x,y-220);
+        ctx.lineTo(x+48,y-190);
         ctx.closePath();
         ctx.fill();
-        ctx.fillStyle="#c3b982";
-        ctx.fillRect(x-12,y-75,24,20);
-        ctx.fillRect(x-12,y-35,24,20);
-        this.drawLevel(ctx,x,y-148,level);
+        ctx.fillStyle="#343837";
+        ctx.beginPath();
+        ctx.moveTo(x-35,y-190);
+        ctx.lineTo(x,y-211);
+        ctx.lineTo(x+35,y-190);
+        ctx.closePath();
+        ctx.fill();
+        this.drawLevel(ctx,x,y-232,level);
     },
     drawWorkshop(ctx,x,y,level){
-        ctx.fillStyle="#383e3f";
-        ctx.fillRect(x-58,y-48,116,68);
-        ctx.fillStyle="#292e30";
-        ctx.fillRect(x-68,y-58,136,14);
-        ctx.fillStyle="#171a1b";
-        ctx.fillRect(x-38,y-28,76,30);
+        ctx.fillStyle="#171919";
+        ctx.fillRect(x-82,y-5,164,30);
+        ctx.fillStyle="#3e403c";
+        ctx.fillRect(x-68,y-72,136,97);
+        ctx.fillStyle="#51483b";
+        ctx.fillRect(x-60,y-63,120,88);
+        ctx.fillStyle="#2b2c2a";
+        ctx.fillRect(x-76,y-83,152,17);
+        ctx.fillStyle="#3b3c38";
+        ctx.fillRect(x-68,y-98,136,18);
+        ctx.fillStyle="#272927";
+        ctx.fillRect(x-40,y-38,80,63);
+        ctx.fillStyle="#654e31";
+        ctx.fillRect(x-33,y-30,66,16);
+        ctx.fillRect(x-33,y-5,66,16);
+        ctx.fillStyle="#b9a86a";
+        ctx.fillRect(x-22,y-26,12,9);
+        ctx.fillRect(x+10,y-26,12,9);
+        ctx.fillStyle="#202221";
+        ctx.fillRect(x-15,y-15,30,40);
+        ctx.fillStyle="#353936";
+        ctx.fillRect(x+43,y-116,18,38);
+        ctx.fillStyle="#252827";
+        ctx.fillRect(x+38,y-122,28,9);
+        ctx.fillStyle="#4c4c45";
+        ctx.fillRect(x-75,y-50,18,45);
+        ctx.fillRect(x+57,y-50,18,45);
         ctx.fillStyle="#8d7548";
-        ctx.fillRect(x-30,y-20,60,14);
-        this.drawLevel(ctx,x,y-70,level);
+        ctx.fillRect(x-72,y-45,12,20);
+        ctx.fillRect(x+60,y-45,12,20);
+        this.drawLevel(ctx,x,y-130,level);
     },
     drawLevel(ctx,x,y,level){
+        ctx.fillStyle="#111415";
+        ctx.fillRect(x-25,y-13,50,20);
         ctx.fillStyle="#d9d8c5";
-        ctx.font="bold 12px monospace";
+        ctx.font="bold 11px monospace";
         ctx.textAlign="center";
-        ctx.fillText("LV."+level,x,y);
+        ctx.fillText("LV."+level,x,y+2);
     }
 };
 Settlement.init();
