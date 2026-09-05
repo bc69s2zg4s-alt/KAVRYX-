@@ -1,0 +1,113 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+body {
+    font-family: Arial, sans-serif;
+    background: #111;
+    color: white;
+}
+button {
+    font: inherit;
+}
+#app {
+    width: 100%;
+    height: 100%;
+}
+.screen {
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+.screen.active {
+    display: block;
+}
+/* =========================
+   ГЛАВНОЕ МЕНЮ
+   ========================= */
+#mainMenu {
+    position: relative;
+    overflow: hidden;
+}
+.menu-background {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(
+            rgba(10, 10, 15, 0.35),
+            rgba(10, 10, 15, 0.85)
+        ),
+        linear-gradient(
+            135deg,
+            #18202b,
+            #10151d 50%,
+            #080b10
+        );
+}
+.menu-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+.game-logo {
+    margin-bottom: 50px;
+    font-size: clamp(42px, 12vw, 90px);
+    font-weight: 900;
+    letter-spacing: 8px;
+    text-align: center;
+    text-shadow:
+        4px 4px 0 #000,
+        0 0 20px rgba(255, 255, 255, 0.15);
+}
+.menu-buttons {
+    width: min(90%, 360px);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+.menu-button {
+    width: 100%;
+    min-height: 58px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    background: rgba(20, 25, 32, 0.9);
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition:
+        transform 0.12s ease,
+        background 0.12s ease;
+}
+.menu-button:active {
+    transform: scale(0.97);
+}
+.menu-button:hover {
+    background: rgba(40, 48, 60, 0.95);
+}
+/* =========================
+   ИГРОВОЙ ЭКРАН
+   ========================= */
+#gameScreen {
+    position: relative;
+    background: #101010;
+}
+#gameCanvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
