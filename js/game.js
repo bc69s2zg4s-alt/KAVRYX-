@@ -170,10 +170,14 @@ function drawGameWorld() {
 /*
  * Основной игровой цикл.
  */
+let gameFrameId = null;
 function gameLoop() {
-    if (!GameState.running || GameState.paused) return;
+    if (!GameState.running || GameState.paused) {
+        gameFrameId = null;
+        return;
+    }
     drawGameWorld();
-    requestAnimationFrame(gameLoop);
+    gameFrameId = requestAnimationFrame(gameLoop);
 }
 /*
  * Запуск игрового Canvas.
@@ -185,9 +189,26 @@ function startGame() {
     gameLoop();
 }
 /*
- * Остановка игрового Canvas.
+ * Управление игровым циклом.
  */
+function pauseGame() {
+    GameState.paused = true;
+    if (gameFrameId !== null) {
+        cancelAnimationFrame(gameFrameId);
+        gameFrameId = null;
+    }
+}
+function resumeGame() {
+    if (!GameState.running || !GameState.paused) return;
+    GameState.paused = false;
+    gameLoop();
+}
 function stopGame() {
     GameState.running = false;
+    if (gameFrameId !== null) {
+        cancelAnimationFrame(gameFrameId);
+        gameFrameId = null;
+    }
 }
+window.KAVRYXGame = { start: startGame, pause: pauseGame, resume: resumeGame, stop: stopGame };
 startGame();
