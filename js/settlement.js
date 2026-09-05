@@ -1,19 +1,38 @@
 "use strict";
 const Settlement = {
-    camera: {x:0,y:0,zoom:1},
-    buildings: [
+    camera:{x:0,y:0,zoom:1},
+    touch:{active:false,x:0,y:0},
+    buildings:[
         {id:"core",type:"core",x:0,y:0,level:1},
         {id:"house1",type:"house",x:-150,y:40,level:1},
         {id:"house2",type:"house",x:150,y:55,level:1},
         {id:"tower",type:"tower",x:230,y:-20,level:1},
         {id:"workshop",type:"workshop",x:-260,y:15,level:1}
     ],
-    init() {
-        this.buildings.forEach((building) => {
-            building.level=Math.max(1,building.level);
-        });
+    init(){
+        this.buildings.forEach((building)=>building.level=Math.max(1,building.level));
+        this.initCamera();
     },
-    draw(ctx,width,height) {
+    initCamera(){
+        const canvas=document.getElementById("gameCanvas");
+        if(!canvas)return;
+        canvas.addEventListener("pointerdown",(event)=>{
+            this.touch.active=true;
+            this.touch.x=event.clientX;
+            this.touch.y=event.clientY;
+        });
+        canvas.addEventListener("pointermove",(event)=>{
+            if(!this.touch.active)return;
+            this.camera.x-=(event.clientX-this.touch.x)/this.camera.zoom;
+            this.camera.y-=(event.clientY-this.touch.y)/this.camera.zoom;
+            this.touch.x=event.clientX;
+            this.touch.y=event.clientY;
+        });
+        canvas.addEventListener("pointerup",()=>this.touch.active=false);
+        canvas.addEventListener("pointercancel",()=>this.touch.active=false);
+        canvas.addEventListener("pointerleave",()=>this.touch.active=false);
+    },
+    draw(ctx,width,height){
         const centerX=width/2;
         const centerY=height*.58;
         ctx.save();
@@ -24,7 +43,7 @@ const Settlement = {
         this.buildings.forEach((building)=>this.drawBuilding(ctx,building,0,0));
         ctx.restore();
     },
-    drawGround(ctx,width,height,centerX,centerY) {
+    drawGround(ctx,width,height,centerX,centerY){
         const size=Math.min(width*.82,700);
         ctx.fillStyle="#1b2020";
         ctx.fillRect(centerX-size/2,centerY-40,size,size*.62);
@@ -32,18 +51,18 @@ const Settlement = {
         ctx.lineWidth=2;
         const block=32;
         for(let x=centerX-size/2;x<centerX+size/2;x+=block){
-            for(let y=centerY-40;y<centerY-40+size*.62;y+=block) ctx.strokeRect(x,y,block,block);
+            for(let y=centerY-40;y<centerY-40+size*.62;y+=block)ctx.strokeRect(x,y,block,block);
         }
     },
-    drawBuilding(ctx,building,centerX,centerY) {
+    drawBuilding(ctx,building,centerX,centerY){
         const x=centerX+building.x;
         const y=centerY+building.y;
-        if(building.type==="core") this.drawCore(ctx,x,y,building.level);
-        if(building.type==="house") this.drawHouse(ctx,x,y,building.level);
-        if(building.type==="tower") this.drawTower(ctx,x,y,building.level);
-        if(building.type==="workshop") this.drawWorkshop(ctx,x,y,building.level);
+        if(building.type==="core")this.drawCore(ctx,x,y,building.level);
+        if(building.type==="house")this.drawHouse(ctx,x,y,building.level);
+        if(building.type==="tower")this.drawTower(ctx,x,y,building.level);
+        if(building.type==="workshop")this.drawWorkshop(ctx,x,y,building.level);
     },
-    drawCore(ctx,x,y,level) {
+    drawCore(ctx,x,y,level){
         ctx.fillStyle="#343b3d";
         ctx.fillRect(x-65,y-70,130,100);
         ctx.fillStyle="#4a5355";
@@ -57,7 +76,7 @@ const Settlement = {
         ctx.fillRect(x-12,y-4,24,34);
         this.drawLevel(ctx,x,y-105,level);
     },
-    drawHouse(ctx,x,y,level) {
+    drawHouse(ctx,x,y,level){
         ctx.fillStyle="#303738";
         ctx.fillRect(x-45,y-45,90,65);
         ctx.fillStyle="#24292a";
@@ -74,7 +93,7 @@ const Settlement = {
         ctx.fillRect(x-10,y-5,20,25);
         this.drawLevel(ctx,x,y-95,level);
     },
-    drawTower(ctx,x,y,level) {
+    drawTower(ctx,x,y,level){
         ctx.fillStyle="#353c3e";
         ctx.fillRect(x-28,y-105,56,125);
         ctx.fillStyle="#252b2c";
@@ -89,7 +108,7 @@ const Settlement = {
         ctx.fillRect(x-12,y-35,24,20);
         this.drawLevel(ctx,x,y-148,level);
     },
-    drawWorkshop(ctx,x,y,level) {
+    drawWorkshop(ctx,x,y,level){
         ctx.fillStyle="#383e3f";
         ctx.fillRect(x-58,y-48,116,68);
         ctx.fillStyle="#292e30";
@@ -100,7 +119,7 @@ const Settlement = {
         ctx.fillRect(x-30,y-20,60,14);
         this.drawLevel(ctx,x,y-70,level);
     },
-    drawLevel(ctx,x,y,level) {
+    drawLevel(ctx,x,y,level){
         ctx.fillStyle="#d9d8c5";
         ctx.font="bold 12px monospace";
         ctx.textAlign="center";
