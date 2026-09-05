@@ -9,7 +9,6 @@ const settingsButton = document.getElementById("settingsButton");
 const supportButton = document.getElementById("supportButton");
 const settingsBackButton = document.getElementById("settingsBackButton");
 const settingButtons = {
-    graphics: document.getElementById("graphicsSettingButton"),
     sound: document.getElementById("soundSettingButton"),
     music: document.getElementById("musicSettingButton"),
     vibration: document.getElementById("vibrationSettingButton")
