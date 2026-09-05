@@ -152,13 +152,82 @@
              ИГРОВОЙ ЭКРАН
              ========================= -->
 
-        <main id="gameScreen" class="screen">
+     <main id="gameScreen" class="screen">
 
-            <canvas id="gameCanvas"></canvas>
+    <canvas id="gameCanvas"></canvas>
 
-        </main>
+    <div class="game-ui">
+
+        <!-- Верхняя панель -->
+
+        <div class="top-bar">
+
+            <div class="level-panel">
+                <span class="ui-label">УРОВЕНЬ</span>
+                <span id="levelValue">1</span>
+            </div>
+
+            <div class="currency-panel">
+
+                <div class="currency">
+                    <span class="currency-icon gold-icon"></span>
+                    <span id="goldValue">0</span>
+                </div>
+
+                <div class="currency">
+                    <span class="currency-icon crystal-icon"></span>
+                    <span id="crystalValue">0</span>
+                </div>
+
+            </div>
+
+            <button
+                id="pauseButton"
+                class="game-button pause-button"
+                type="button"
+            >
+                II
+            </button>
+
+        </div>
+
+
+        <!-- Нижняя панель -->
+
+        <div class="bottom-bar">
+
+            <button
+                id="settlementButton"
+                class="game-button action-button"
+                type="button"
+            >
+                <span class="button-icon">⌂</span>
+                <span>ПОСЕЛЕНИЕ</span>
+            </button>
+
+            <button
+                id="weaponsButton"
+                class="game-button action-button"
+                type="button"
+            >
+                <span class="button-icon">◆</span>
+                <span>ОРУЖИЕ</span>
+            </button>
+
+            <button
+                id="craftingButton"
+                class="game-button action-button"
+                type="button"
+            >
+                <span class="button-icon">✦</span>
+                <span>КРАФТ</span>
+            </button>
+
+        </div>
 
     </div>
+
+</main>
 
 
     <script src="js/main.js"></script>
