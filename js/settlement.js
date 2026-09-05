@@ -64,36 +64,11 @@ const Settlement={
         ctx.scale(this.camera.zoom,this.camera.zoom);
         ctx.translate(-this.camera.x,-this.camera.y);
         this.drawGround(ctx,width,height,0,0);
-        this.drawRoads(ctx,0,0);
         this.buildings.forEach((building)=>this.drawBuilding(ctx,building,0,0));
         ctx.restore();
     },
     drawGround(ctx,width,height,centerX,centerY){
-    if(window.KAVRYXSettlementGround)KAVRYXSettlementGround.draw(ctx,width,height,centerX,centerY);
-},
-        const size=Math.min(width*.82,700);
-        ctx.fillStyle="#1b2020";
-        ctx.fillRect(centerX-size/2,centerY-40,size,size*.62);
-        ctx.strokeStyle="rgba(0,0,0,.25)";
-        ctx.lineWidth=2;
-        const block=32;
-        for(let x=centerX-size/2;x<centerX+size/2;x+=block){
-            for(let y=centerY-40;y<centerY-40+size*.62;y+=block)ctx.strokeRect(x,y,block,block);
-        }
-        ctx.fillStyle="#242a28";
-        ctx.fillRect(centerX-size/2,centerY+size*.35,size,24);
-    },
-    drawRoads(ctx,x,y){
-        ctx.fillStyle="#252724";
-        ctx.fillRect(x-400,y+20,800,34);
-        ctx.fillRect(x-18,y-250,36,400);
-        ctx.fillStyle="#30322d";
-        for(let i=-380;i<380;i+=48){
-            ctx.fillRect(x+i,y+27,30,5);
-        }
-        for(let i=-230;i<150;i+=48){
-            ctx.fillRect(x-13,y+i,5,30);
-        }
+        if(window.KAVRYXSettlementGround)KAVRYXSettlementGround.draw(ctx,width,height,centerX,centerY);
     },
     drawBuilding(ctx,building,centerX,centerY){
         const x=centerX+building.x;
