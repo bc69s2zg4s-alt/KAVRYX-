@@ -4,694 +4,303 @@
     padding: 0;
     -webkit-tap-highlight-color: transparent;
 }
-
-html,
-body {
+html,body {
     width: 100%;
     height: 100%;
     overflow: hidden;
 }
-
 body {
-    font-family:
-        "Courier New",
-        monospace;
-
+    font-family: "Courier New",monospace;
     background: #0b0e12;
-    color: #ffffff;
-
+    color: #fff;
     user-select: none;
 }
-
-
-/* =========================================
-   ОСНОВА
-   ========================================= */
-
 #app {
     width: 100%;
     height: 100%;
 }
-
 .screen {
     display: none;
-
     position: relative;
-
     width: 100%;
     height: 100%;
 }
-
 .screen.active {
     display: block;
 }
-
-
-/* =========================================
-   ФОН МИРА
-   ========================================= */
-
 .world-background {
     position: absolute;
-
     inset: 0;
-
     overflow: hidden;
-
     background: #111820;
 }
-
-
-/* Небо */
-
 .sky {
     position: absolute;
-
     inset: 0;
-
-    background:
-        linear-gradient(
-            to bottom,
-            #101a27 0%,
-            #17283a 45%,
-            #29323a 72%,
-            #171b1e 100%
-        );
+    background: linear-gradient(to bottom,#101a27 0%,#17283a 45%,#29323a 72%,#171b1e 100%);
 }
-
-
-/* Луна */
-
 .moon {
     position: absolute;
-
     width: 90px;
     height: 90px;
-
     right: 14%;
     top: 12%;
-
     border-radius: 50%;
-
     background: #d9d8c5;
-
-    box-shadow:
-        0 0 0 5px rgba(217, 216, 197, 0.05),
-        0 0 35px rgba(217, 216, 197, 0.18);
-
+    box-shadow: 0 0 0 5px rgba(217,216,197,.05),0 0 35px rgba(217,216,197,.18);
     image-rendering: pixelated;
 }
-
-
-/* =========================================
-   ГОРЫ
-   ========================================= */
-
 .mountains {
     position: absolute;
-
     left: -5%;
     right: -5%;
-
     bottom: 27%;
-
     height: 260px;
-
-    clip-path: polygon(
-        0 100%,
-        0 70%,
-        10% 45%,
-        17% 65%,
-        27% 30%,
-        35% 62%,
-        46% 20%,
-        57% 58%,
-        67% 34%,
-        78% 65%,
-        89% 40%,
-        100% 65%,
-        100% 100%
-    );
+    clip-path: polygon(0 100%,0 70%,10% 45%,17% 65%,27% 30%,35% 62%,46% 20%,57% 58%,67% 34%,78% 65%,89% 40%,100% 65%,100% 100%);
 }
-
 .mountains-back {
     background: #18222b;
-
-    opacity: 0.9;
-
+    opacity: .9;
     transform: scale(1.05);
 }
-
 .mountains-front {
     bottom: 24%;
-
     background: #11171c;
-
-    opacity: 1;
 }
-
-
-/* =========================================
-   ЗЕМЛЯ
-   ========================================= */
-
 .ground {
     position: absolute;
-
     left: 0;
     right: 0;
     bottom: 0;
-
     height: 30%;
-
-    background:
-        repeating-linear-gradient(
-            90deg,
-            #252a28 0px,
-            #252a28 24px,
-            #202523 24px,
-            #202523 48px
-        );
-
+    background: repeating-linear-gradient(90deg,#252a28 0,#252a28 24px,#202523 24px,#202523 48px);
     border-top: 4px solid #0d1114;
 }
-
-
-/* =========================================
-   ПОСЕЛЕНИЕ
-   ========================================= */
-
 .settlement {
     position: absolute;
-
     left: 50%;
     bottom: 17%;
-
-    width: min(620px, 80vw);
+    width: min(620px,80vw);
     height: 280px;
-
     transform: translateX(-50%);
 }
-
-
-/* Общий дом */
-
 .house {
     position: absolute;
-
     bottom: 0;
-
     background: #4a4037;
-
     border: 5px solid #171717;
-
-    box-shadow:
-        8px 8px 0 rgba(0, 0, 0, 0.35);
+    box-shadow: 8px 8px 0 rgba(0,0,0,.35);
 }
-
 .house-large {
     left: 30%;
-
     width: 190px;
     height: 145px;
 }
-
 .house-small {
     left: 3%;
-
     width: 125px;
     height: 105px;
 }
-
-
-/* Крыша */
-
 .house-roof {
     position: absolute;
-
     left: -12px;
     right: -12px;
-
     top: -45px;
-
     height: 55px;
-
     background: #383b3a;
-
     border: 5px solid #171717;
-
-    clip-path: polygon(
-        0 100%,
-        50% 0,
-        100% 100%
-    );
+    clip-path: polygon(0 100%,50% 0,100% 100%);
 }
-
-
-/* Дверь */
-
 .house-door {
     position: absolute;
-
     bottom: 0;
     left: 50%;
-
     width: 38px;
     height: 68px;
-
     transform: translateX(-50%);
-
     background: #29231e;
-
     border: 4px solid #111;
 }
-
-
-/* Окно */
-
 .house-window {
     position: absolute;
-
     left: 25px;
     top: 30px;
-
     width: 42px;
     height: 42px;
-
     background: #a99b61;
-
     border: 4px solid #111;
-
-    box-shadow:
-        inset 0 0 0 4px #655f43;
+    box-shadow: inset 0 0 0 4px #655f43;
 }
-
-
-/* =========================================
-   БАШНЯ
-   ========================================= */
-
 .tower {
     position: absolute;
-
     right: 5%;
-
     bottom: 0;
-
     width: 80px;
     height: 190px;
-
     background: #484642;
-
     border: 5px solid #151515;
-
-    box-shadow:
-        8px 8px 0 rgba(0, 0, 0, 0.35);
+    box-shadow: 8px 8px 0 rgba(0,0,0,.35);
 }
-
 .tower-roof {
     position: absolute;
-
     left: -12px;
     right: -12px;
-
     top: -45px;
-
     height: 50px;
-
     background: #343535;
-
     border: 5px solid #111;
-
-    clip-path: polygon(
-        0 100%,
-        50% 0,
-        100% 100%
-    );
+    clip-path: polygon(0 100%,50% 0,100% 100%);
 }
-
 .tower-window {
     position: absolute;
-
     top: 42px;
     left: 22px;
-
     width: 30px;
     height: 40px;
-
     background: #a99b61;
-
     border: 4px solid #111;
 }
-
-
-/* =========================================
-   КОСТЁР
-   ========================================= */
-
 .fire {
     position: absolute;
-
     left: 45%;
-
     bottom: 5px;
-
     width: 45px;
     height: 45px;
-
     transform: translateX(-50%);
 }
-
 .fire span {
     position: absolute;
-
     bottom: 0;
-
     width: 20px;
     height: 30px;
-
     background: #d4a34d;
-
     border: 3px solid #161616;
-
     transform: rotate(45deg);
 }
-
 .fire span:nth-child(1) {
     left: 3px;
 }
-
 .fire span:nth-child(2) {
     left: 13px;
     bottom: 7px;
 }
-
 .fire span:nth-child(3) {
     left: 23px;
 }
-
-
-/* =========================================
-   ЗАТЕМНЕНИЕ ФОНА
-   ========================================= */
-
 .dark-overlay {
     position: absolute;
-
     inset: 0;
-
-    background:
-        linear-gradient(
-            to bottom,
-            rgba(0, 0, 0, 0.1),
-            rgba(0, 0, 0, 0.5)
-        );
+    background: linear-gradient(to bottom,rgba(0,0,0,.1),rgba(0,0,0,.5));
 }
-
-
-/* =========================================
-   ИНТЕРФЕЙС
-   ========================================= */
-
 .menu-interface {
     position: relative;
-
     z-index: 10;
-
     width: 100%;
     height: 100%;
-
     display: flex;
-
     flex-direction: column;
-
     align-items: center;
-
     justify-content: center;
-
     padding: 20px;
 }
-
-
-/* =========================================
-   ЛОГОТИП
-   ========================================= */
-
 .logo-container {
     position: relative;
-
     margin-bottom: 38px;
-
     text-align: center;
 }
-
 .game-logo {
     position: relative;
-
     z-index: 2;
-
-    font-size: clamp(48px, 13vw, 88px);
-
+    font-size: clamp(48px,13vw,88px);
     font-weight: 900;
-
     letter-spacing: 8px;
-
-    color: #eeeeee;
-
-    text-shadow:
-        5px 5px 0 #111111,
-        9px 9px 0 rgba(0, 0, 0, 0.35);
+    color: #eee;
+    text-shadow: 5px 5px 0 #111,9px 9px 0 rgba(0,0,0,.35);
 }
-
 .logo-shadow {
     position: absolute;
-
     left: 50%;
     top: 7px;
-
     transform: translateX(-50%);
-
-    font-size: clamp(48px, 13vw, 88px);
-
+    font-size: clamp(48px,13vw,88px);
     font-weight: 900;
-
     letter-spacing: 8px;
-
     color: #59616a;
-
-    opacity: 0.5;
+    opacity: .5;
 }
-
 .logo-subtitle {
     margin-top: 4px;
-
     font-size: 10px;
-
     letter-spacing: 3px;
-
     color: #a6adb3;
 }
-
-
-/* =========================================
-   КНОПКИ
-   ========================================= */
-
 .menu-buttons {
-    width: min(360px, 88vw);
-
+    width: min(360px,88vw);
     display: flex;
-
     flex-direction: column;
-
     gap: 11px;
 }
-
 .menu-button {
     position: relative;
-
     width: 100%;
-
     min-height: 55px;
-
     padding: 0 20px;
-
     border: 4px solid #111417;
-
     background: #394149;
-
     color: #f0f0f0;
-
-    font-family:
-        "Courier New",
-        monospace;
-
+    font-family: "Courier New",monospace;
     font-size: 17px;
-
     font-weight: 900;
-
     letter-spacing: 2px;
-
-    box-shadow:
-        5px 5px 0 rgba(0, 0, 0, 0.45);
-
+    box-shadow: 5px 5px 0 rgba(0,0,0,.45);
     cursor: pointer;
-
-    transition:
-        transform 0.08s ease,
-        filter 0.08s ease;
+    transition: transform .08s ease,filter .08s ease;
 }
-
 .menu-button::before {
     content: "";
-
     position: absolute;
-
     left: 4px;
     right: 4px;
-
     top: 4px;
-
     height: 4px;
-
-    background: rgba(255, 255, 255, 0.12);
+    background: rgba(255,255,255,.12);
 }
-
 .menu-button:active {
-    transform:
-        translate(4px, 4px);
-
-    box-shadow:
-        1px 1px 0 rgba(0, 0, 0, 0.45);
+    transform: translate(4px,4px);
+    box-shadow: 1px 1px 0 rgba(0,0,0,.45);
 }
-
 .menu-button:hover {
     filter: brightness(1.15);
 }
-
-
-/* Главная кнопка */
-
 .menu-button.primary {
     background: #566575;
-
     border-color: #0c1014;
-
     min-height: 62px;
-
     font-size: 20px;
-
-    box-shadow:
-        6px 6px 0 rgba(0, 0, 0, 0.5);
+    box-shadow: 6px 6px 0 rgba(0,0,0,.5);
 }
-
-
-/* =========================================
-   ВЕРСИЯ
-   ========================================= */
-
 .version {
     position: absolute;
-
     bottom: 10px;
-
     font-size: 8px;
-
     letter-spacing: 2px;
-
-    color: rgba(255, 255, 255, 0.35);
+    color: rgba(255,255,255,.35);
 }
-
-
-/* =========================================
-   ИГРОВОЙ ЭКРАН
-   ========================================= */
-
 #gameScreen {
     background: #101010;
 }
-
 #gameCanvas {
     display: block;
-
     width: 100%;
     height: 100%;
 }
-
-
-/* =========================================
-   МОБИЛЬНЫЕ УСТРОЙСТВА
-   ========================================= */
-
-@media (max-height: 650px) {
-
-    .logo-container {
-        margin-bottom: 18px;
-    }
-
-    .game-logo,
-    .logo-shadow {
-        font-size: 44px;
-    }
-
-    .menu-buttons {
-        gap: 7px;
-    }
-
-    .menu-button {
-        min-height: 43px;
-        font-size: 14px;
-    }
-
-    .menu-button.primary {
-        min-height: 48px;
-    }
-
-    .settlement {
-        transform:
-            translateX(-50%)
-            scale(0.75);
-    }
-}
-
-
-/* =========================================
-   БОЛЬШИЕ ЭКРАНЫ
-   ========================================= */
-
-@media (min-width: 900px) {
-
-    .menu-interface {
-        align-items: flex-start;
-
-        padding-left: 10%;
-
-        justify-content: center;
-    }
-
-    .logo-container {
-        text-align: left;
-    }
-
-    .logo-shadow {
-        left: 0;
-
-        transform: translateX(0);
-    }
-
-    .menu-buttons {
-        width: 350px;
-    }
-}
-
 .game-ui {
     position: absolute;
     inset: 0;
     z-index: 10;
     pointer-events: none;
-    font-family: "Courier New", monospace;
+    font-family: "Courier New",monospace;
 }
-
 .top-bar {
     position: absolute;
     top: 18px;
@@ -702,15 +311,11 @@ body {
     gap: 12px;
     pointer-events: none;
 }
-
-.level-panel,
-.currency-panel,
-.game-button {
+.level-panel,.currency-panel,.game-button {
     border: 3px solid #090b0c;
-    background: rgba(20, 24, 25, 0.92);
+    background: rgba(20,24,25,.92);
     box-shadow: 5px 5px 0 #090b0c;
 }
-
 .level-panel {
     min-width: 92px;
     padding: 8px 12px;
@@ -718,25 +323,21 @@ body {
     flex-direction: column;
     color: #e2dfc8;
 }
-
 .ui-label {
     font-size: 10px;
     letter-spacing: 1px;
-    opacity: 0.7;
+    opacity: .7;
 }
-
 #levelValue {
     margin-top: 2px;
     font-size: 25px;
     font-weight: bold;
 }
-
 .currency-panel {
     display: flex;
     gap: 6px;
     padding: 7px;
 }
-
 .currency {
     min-width: 72px;
     height: 36px;
@@ -748,7 +349,6 @@ body {
     font-size: 17px;
     font-weight: bold;
 }
-
 .currency-icon {
     width: 16px;
     height: 16px;
@@ -756,172 +356,50 @@ body {
     border: 2px solid #090b0c;
     transform: rotate(45deg);
 }
-
 .gold-icon {
     background: #c49a35;
 }
-
 .crystal-icon {
     background: #7195a3;
 }
-
+.game-button {
+    pointer-events: auto;
+    color: #fff;
+    font-family: "Courier New",monospace;
+    font-weight: 900;
+    cursor: pointer;
+}
 .pause-button {
-    position: relative;
-    z-index: 30;
     margin-left: auto;
     width: 48px;
     height: 48px;
-    padding: 0;
-    color: #e2dfc8;
     font-size: 18px;
-    font-weight: bold;
-    pointer-events: auto;
 }
-
-.game-button {
-    cursor: pointer;
-    transition: transform 0.08s ease;
-}
-
-.game-button:active {
-    transform: translate(4px, 4px);
-    box-shadow: 1px 1px 0 #090b0c;
-}
-
 .bottom-bar {
     position: absolute;
     left: 18px;
     right: 18px;
-    bottom: 20px;
+    bottom: 18px;
     display: flex;
     justify-content: center;
-    gap: 10px;
+    gap: 12px;
     pointer-events: none;
 }
-
 .action-button {
-    min-width: 112px;
-    min-height: 58px;
-    padding: 7px 10px;
+    min-width: 145px;
+    min-height: 55px;
+    padding: 0 14px;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 3px;
-    color: #e2dfc8;
-    font-family: inherit;
-    font-size: 10px;
-    font-weight: bold;
-    letter-spacing: 0.5px;
-    pointer-events: auto;
-}
-
-.button-icon {
-    font-size: 20px;
-    line-height: 20px;
-}
-
-@media (max-width: 520px) {
-    .top-bar {
-        top: 12px;
-        left: 12px;
-        right: 12px;
-        gap: 7px;
-    }
-
-    .level-panel {
-        min-width: 68px;
-        padding: 6px 8px;
-    }
-
-    .currency-panel {
-        padding: 5px;
-        gap: 3px;
-    }
-
-    .currency {
-        min-width: 55px;
-        height: 32px;
-        padding: 0 6px;
-        gap: 6px;
-        font-size: 14px;
-    }
-
-    .currency-icon {
-        width: 13px;
-        height: 13px;
-    }
-
-    .pause-button {
-        width: 42px;
-        height: 42px;
-    }
-
-    .bottom-bar {
-        left: 10px;
-        right: 10px;
-        bottom: 12px;
-        gap: 6px;
-    }
-
-    .action-button {
-        min-width: 0;
-        flex: 1;
-        min-height: 54px;
-        padding: 5px;
-        font-size: 9px;
-    }
-}
-
-.pause-overlay {
-    position: absolute;
-    inset: 0;
-    z-index: 20;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    background: rgba(5, 7, 8, 0.72);
-    pointer-events: auto;
-}
-
-.pause-overlay.active {
-    display: flex;
-}
-
-.pause-panel {
-    min-width: 220px;
-    padding: 24px 30px;
-    border: 4px solid #090b0c;
-    background: rgba(25, 29, 30, 0.98);
-    box-shadow: 7px 7px 0 #090b0c;
-    text-align: center;
-}
-
-.pause-title {
-    color: #e2dfc8;
-    font-size: 28px;
-    font-weight: bold;
-    letter-spacing: 2px;
-}
-
-.pause-subtitle {
-    margin-top: 8px;
-    color: #8e928e;
-    font-size: 10px;
+    gap: 8px;
+    background: #394149;
+    font-size: 13px;
     letter-spacing: 1px;
 }
-
-@media (max-width: 520px) {
-    .pause-panel {
-        min-width: 190px;
-        padding: 20px 24px;
-    }
-
-    .pause-title {
-        font-size: 24px;
-    }
+.button-icon {
+    font-size: 18px;
 }
-
 .pause-overlay {
     position: absolute;
     inset: 0;
@@ -929,7 +407,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.65);
+    background: rgba(0,0,0,.65);
     pointer-events: auto;
     opacity: 0;
     visibility: hidden;
@@ -939,7 +417,7 @@ body {
     visibility: visible;
 }
 .pause-panel {
-    width: min(360px, 86vw);
+    width: min(360px,86vw);
     padding: 30px 24px;
     border: 4px solid #090b0c;
     background: #20262b;
@@ -963,8 +441,8 @@ body {
     margin-top: 24px;
     border: 4px solid #090b0c;
     background: #566575;
-    color: #ffffff;
-    font-family: "Courier New", monospace;
+    color: #fff;
+    font-family: "Courier New",monospace;
     font-size: 17px;
     font-weight: 900;
     letter-spacing: 2px;
@@ -972,6 +450,90 @@ body {
     cursor: pointer;
 }
 .resume-button:active {
-    transform: translate(4px, 4px);
+    transform: translate(4px,4px);
     box-shadow: 1px 1px 0 #090b0c;
+}
+@media (max-width:700px) {
+    .top-bar {
+        top: 10px;
+        left: 10px;
+        right: 10px;
+        gap: 7px;
+    }
+    .level-panel {
+        min-width: 72px;
+        padding: 6px 8px;
+    }
+    .currency-panel {
+        gap: 2px;
+        padding: 5px;
+    }
+    .currency {
+        min-width: 58px;
+        height: 32px;
+        padding: 0 6px;
+        gap: 6px;
+        font-size: 14px;
+    }
+    .pause-button {
+        width: 42px;
+        height: 42px;
+    }
+    .bottom-bar {
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+        gap: 6px;
+    }
+    .action-button {
+        min-width: 0;
+        flex: 1;
+        min-height: 48px;
+        padding: 0 5px;
+        font-size: 10px;
+    }
+    .button-icon {
+        font-size: 15px;
+    }
+    .settlement {
+        transform: translateX(-50%) scale(.75);
+    }
+}
+@media (max-height:650px) {
+    .logo-container {
+        margin-bottom: 18px;
+    }
+    .game-logo,.logo-shadow {
+        font-size: 44px;
+    }
+    .menu-buttons {
+        gap: 7px;
+    }
+    .menu-button {
+        min-height: 43px;
+        font-size: 14px;
+    }
+    .menu-button.primary {
+        min-height: 48px;
+    }
+    .settlement {
+        transform: translateX(-50%) scale(.75);
+    }
+}
+@media (min-width:900px) {
+    .menu-interface {
+        align-items: flex-start;
+        padding-left: 10%;
+        justify-content: center;
+    }
+    .logo-container {
+        text-align: left;
+    }
+    .logo-shadow {
+        left: 0;
+        transform: translateX(0);
+    }
+    .menu-buttons {
+        width: 350px;
+    }
 }
