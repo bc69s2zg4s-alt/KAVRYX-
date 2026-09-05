@@ -4,11 +4,11 @@ const Settlement={
     touch:{active:false,x:0,y:0,startX:0,startY:0},
     selectedBuilding:null,
     buildings:[
-        {id:"core",type:"core",x:0,y:0,level:1},
-        {id:"house1",type:"house",x:-230,y:55,level:1},
-        {id:"house2",type:"house",x:230,y:65,level:1},
-        {id:"tower",type:"tower",x:330,y:-35,level:1},
-        {id:"workshop",type:"workshop",x:-350,y:30,level:1}
+        {id:"core",type:"core",x:0,y:20,level:1},
+        {id:"house1",type:"house",x:-230,y:110,level:1},
+        {id:"house2",type:"house",x:230,y:120,level:1},
+        {id:"tower",type:"tower",x:330,y:-120,level:1},
+        {id:"workshop",type:"workshop",x:-350,y:-90,level:1}
     ],
     init(){
         this.buildings.forEach((building)=>building.level=Math.max(1,building.level));
@@ -83,13 +83,13 @@ const Settlement={
     },
     drawRoads(ctx,x,y){
         ctx.fillStyle="#252724";
-        ctx.fillRect(x-320,y+20,640,34);
-        ctx.fillRect(x-18,y-250,36,300);
+        ctx.fillRect(x-400,y+20,800,34);
+        ctx.fillRect(x-18,y-250,36,400);
         ctx.fillStyle="#30322d";
-        for(let i=-300;i<300;i+=48){
+        for(let i=-380;i<380;i+=48){
             ctx.fillRect(x+i,y+27,30,5);
         }
-        for(let i=-230;i<40;i+=48){
+        for(let i=-230;i<150;i+=48){
             ctx.fillRect(x-13,y+i,5,30);
         }
     },
