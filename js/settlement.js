@@ -64,11 +64,23 @@ const Settlement={
         ctx.scale(this.camera.zoom,this.camera.zoom);
         ctx.translate(-this.camera.x,-this.camera.y);
         this.drawGround(ctx,width,height,0,0);
+        this.drawWater(ctx,width,height,0,0);
+        this.drawNature(ctx,width,height,0,0);
+        this.drawDecor(ctx,width,height,0,0);
         this.buildings.forEach((building)=>this.drawBuilding(ctx,building,0,0));
         ctx.restore();
     },
     drawGround(ctx,width,height,centerX,centerY){
         if(window.KAVRYXSettlementGround)KAVRYXSettlementGround.draw(ctx,width,height,centerX,centerY);
+    },
+    drawWater(ctx,width,height,centerX,centerY){
+        if(window.KAVRYXSettlementWater)KAVRYXSettlementWater.draw(ctx,width,height,centerX,centerY);
+    },
+    drawNature(ctx,width,height,centerX,centerY){
+        if(window.KAVRYXSettlementNature)KAVRYXSettlementNature.draw(ctx,width,height,centerX,centerY);
+    },
+    drawDecor(ctx,width,height,centerX,centerY){
+        if(window.KAVRYXSettlementDecor)KAVRYXSettlementDecor.draw(ctx,width,height,centerX,centerY);
     },
     drawBuilding(ctx,building,centerX,centerY){
         const x=centerX+building.x;
