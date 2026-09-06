@@ -3,25 +3,31 @@ const SettlementDecor={
     draw(ctx,width,height,centerX,centerY){
         const map=window.KAVRYXSettlementMap;
         if(!map)return;
-        this.drawOuterFence(ctx,map);
-        this.drawWorkAreas(ctx,map);
-        this.drawStorageAreas(ctx,map);
-        this.drawCamp(ctx,175,205);
-        this.drawLights(ctx,map);
-    },
-    drawOuterFence(ctx,map){
-        const left=map.left+12;
-        const right=map.right-12;
-        const top=map.top+12;
-        const bottom=map.bottom-12;
-        const gateLeft=-55;
-        const gateRight=55;
-        ctx.fillStyle="#171917";
-        for(let x=left;x<right;x+=42){
-            if(x>gateLeft-10&&x<gateRight+10)continue;
-            ctx.fillRect(x,top,7,27);
-            ctx.fillRect(x,bottom-22,7,22);
-        }
+        drawOuterFence(ctx,map){
+    const left=map.left+12;
+    const right=map.right-12;
+    const top=map.top+12;
+    const bottom=map.bottom-12;
+    const gateLeft=-55;
+    const gateRight=55;
+    ctx.fillStyle="#171917";
+    for(let x=left;x<right;x+=42){
+        if(x>gateLeft-10&&x<gateRight+10)continue;
+        ctx.fillRect(x,top,7,27);
+        ctx.fillRect(x,bottom-22,7,22);
+    }
+    for(let y=top+35;y<bottom-25;y+=42){
+        ctx.fillRect(left,y,7,27);
+        ctx.fillRect(right-7,y,7,27);
+    }
+    ctx.fillStyle="#493c2c";
+    ctx.fillRect(left,top+5,right-left,5);
+    ctx.fillRect(left,bottom-20,gateLeft-left,5);
+    ctx.fillRect(gateRight,bottom-20,right-gateRight,5);
+    ctx.fillRect(left,top,5,bottom-top);
+    ctx.fillRect(right-5,top,5,bottom-top);
+    this.drawEntrance(ctx,0,bottom);
+},
         for(let y=top+35;y<bottom-25;y+=42){
             ctx.fillRect(left,y,7,27);
             ctx.fillRect(right-7,y,7,27);
