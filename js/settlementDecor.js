@@ -3,55 +3,48 @@ const SettlementDecor={
     draw(ctx,width,height,centerX,centerY){
         const map=window.KAVRYXSettlementMap;
         if(!map)return;
-        drawOuterFence(ctx,map){
-    const left=map.left+12;
-    const right=map.right-12;
-    const top=map.top+12;
-    const bottom=map.bottom-12;
-    const gateLeft=-55;
-    const gateRight=55;
-    ctx.fillStyle="#171917";
-    for(let x=left;x<right;x+=42){
-        if(x>gateLeft-10&&x<gateRight+10)continue;
-        ctx.fillRect(x,top,7,27);
-        ctx.fillRect(x,bottom-22,7,22);
-    }
-    for(let y=top+35;y<bottom-25;y+=42){
-        ctx.fillRect(left,y,7,27);
-        ctx.fillRect(right-7,y,7,27);
-    }
-    ctx.fillStyle="#493c2c";
-    ctx.fillRect(left,top+5,right-left,5);
-    ctx.fillRect(left,bottom-20,gateLeft-left,5);
-    ctx.fillRect(gateRight,bottom-20,right-gateRight,5);
-    ctx.fillRect(left,top,5,bottom-top);
-    ctx.fillRect(right-5,top,5,bottom-top);
-    this.drawEntrance(ctx,0,bottom);
-},
-        for(let y=top+35;y<bottom-25;y+=42){
-            ctx.fillRect(left,y,7,27);
-            ctx.fillRect(right-7,y,7,27);
+        this.drawOuterFence(ctx,map);
+        this.drawWorkAreas(ctx,map);
+        this.drawStorageAreas(ctx,map);
+        this.drawLights(ctx,map);
+    },
+    drawOuterFence(ctx,map){
+        const left=map.left+8;
+        const right=map.right-8;
+        const top=map.top+8;
+        const bottom=map.bottom-8;
+        const gateLeft=-55;
+        const gateRight=55;
+        ctx.fillStyle="#111412";
+        for(let x=left;x<=right;x+=38){
+            if(x>=gateLeft-10&&x<=gateRight+10)continue;
+            ctx.fillRect(x,top,9,30);
+            ctx.fillRect(x,bottom-30,9,30);
+        }
+        for(let y=top+38;y<bottom-25;y+=38){
+            ctx.fillRect(left,y,9,30);
+            ctx.fillRect(right-9,y,9,30);
         }
         ctx.fillStyle="#493c2c";
-        ctx.fillRect(left,top+5,right-left,5);
-        ctx.fillRect(left,bottom-20,gateLeft-left,5);
-        ctx.fillRect(gateRight,bottom-20,right-gateRight,5);
-        ctx.fillRect(left,top,5,bottom-top);
-        ctx.fillRect(right-5,top,5,bottom-top);
+        ctx.fillRect(left,top+7,right-left,7);
+        ctx.fillRect(left,bottom-7,gateLeft-left,7);
+        ctx.fillRect(gateRight,bottom-7,right-gateRight,7);
+        ctx.fillRect(left,top,7,bottom-top);
+        ctx.fillRect(right-7,top,7,bottom-top);
         this.drawEntrance(ctx,0,bottom);
     },
     drawEntrance(ctx,x,y){
-        ctx.fillStyle="#171917";
-        ctx.fillRect(x-45,y-38,9,48);
-        ctx.fillRect(x+36,y-38,9,48);
-        ctx.fillStyle="#574630";
-        ctx.fillRect(x-34,y-29,7,39);
-        ctx.fillRect(x-19,y-29,7,39);
-        ctx.fillRect(x-4,y-29,7,39);
-        ctx.fillRect(x+11,y-29,7,39);
-        ctx.fillRect(x+26,y-29,7,39);
+        ctx.fillStyle="#111412";
+        ctx.fillRect(x-50,y-42,10,42);
+        ctx.fillRect(x+40,y-42,10,42);
+        ctx.fillStyle="#624d32";
+        ctx.fillRect(x-38,y-32,8,32);
+        ctx.fillRect(x-20,y-32,8,32);
+        ctx.fillRect(x-2,y-32,8,32);
+        ctx.fillRect(x+16,y-32,8,32);
+        ctx.fillRect(x+34,y-32,8,32);
         ctx.fillStyle="#1c1e1b";
-        ctx.fillRect(x-39,y-35,78,6);
+        ctx.fillRect(x-45,y-39,90,7);
     },
     drawWorkAreas(ctx,map){
         const points=[
