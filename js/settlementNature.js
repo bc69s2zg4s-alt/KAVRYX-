@@ -12,87 +12,107 @@ const SettlementNature={
             value=(value*9301+49297)%233280;
             return value/233280;
         };
-        this.drawTrees(ctx,left+45,top+65,right-45,bottom-55,random);
-        this.drawBushes(ctx,left+30,top+40,right-30,bottom-30,random);
-        this.drawGrass(ctx,left+25,top+30,right-25,bottom-25,random);
-        this.drawRocks(ctx,left+25,top+30,right-25,bottom-30,random);
+        this.drawGrass(ctx,left+20,top+25,right-20,bottom-20,random);
+        this.drawBushZones(ctx,left,top,right,bottom,random);
+        this.drawForestZones(ctx,left,top,right,bottom,random);
+        this.drawRocks(ctx,left,top,right,bottom,random);
     },
-    drawTrees(ctx,left,top,right,bottom,random){
-        for(let i=0;i<18;i++){
-            const x=left+random()*(right-left);
-            const y=top+random()*(bottom-top);
-            if(Math.abs(x-(left+right)/2)<180&&Math.abs(y-(top+bottom)/2)<120)continue;
-            this.drawTree(ctx,x,y,random);
-        }
-    },
-    drawTree(ctx,x,y,random){
-        const scale=.8+random()*.45;
-        ctx.fillStyle="#171a18";
-        ctx.fillRect(x-7*scale,y-4*scale,14*scale,48*scale);
-        ctx.fillStyle="#3b3026";
-        ctx.fillRect(x-5*scale,y-2*scale,10*scale,45*scale);
-        ctx.fillStyle="#252b27";
-        ctx.fillRect(x-30*scale,y-48*scale,60*scale,42*scale);
-        ctx.fillRect(x-23*scale,y-65*scale,46*scale,24*scale);
-        ctx.fillRect(x-12*scale,y-77*scale,24*scale,20*scale);
-        ctx.fillStyle="#39453a";
-        ctx.fillRect(x-25*scale,y-44*scale,50*scale,31*scale);
-        ctx.fillRect(x-19*scale,y-60*scale,38*scale,25*scale);
-        ctx.fillRect(x-9*scale,y-70*scale,18*scale,17*scale);
-        ctx.fillStyle="#4a5747";
-        ctx.fillRect(x-16*scale,y-51*scale,11*scale,8*scale);
-        ctx.fillRect(x+7*scale,y-61*scale,10*scale,7*scale);
-        ctx.fillRect(x-4*scale,y-68*scale,8*scale,6*scale);
-        ctx.fillStyle="#1c211e";
-        ctx.fillRect(x-35*scale,y-13*scale,9*scale,7*scale);
-        ctx.fillRect(x+26*scale,y-22*scale,9*scale,7*scale);
-    },
-    drawBushes(ctx,left,top,right,bottom,random){
-        for(let i=0;i<34;i++){
-            const x=left+random()*(right-left);
-            const y=top+random()*(bottom-top);
-            if(Math.abs(x-(left+right)/2)<150&&Math.abs(y-(top+bottom)/2)<100)continue;
-            this.drawBush(ctx,x,y,random);
-        }
-    },
-    drawBush(ctx,x,y,random){
-        const size=8+random()*10;
-        ctx.fillStyle="#202721";
-        ctx.fillRect(x-size,y-size*.35,size*2,size);
-        ctx.fillRect(x-size*.55,y-size,size*1.1,size);
-        ctx.fillStyle="#354034";
-        ctx.fillRect(x-size*.75,y-size*.3,size*.9,size*.55);
-        ctx.fillRect(x-size*.15,y-size*.75,size*.9,size*.65);
-        ctx.fillStyle="#465143";
-        ctx.fillRect(x-size*.4,y-size*.55,size*.35,size*.25);
+    blocked(x,y){
+        if(Math.abs(x)<150&&Math.abs(y)<105)return true;
+        if(Math.abs(y-110)<55&&(Math.abs(x)<410))return true;
+        if(Math.abs(x)<55&&y>-250&&y<160)return true;
+        if(x>250&&y<-45)return true;
+        if(x<-280&&y<-10)return true;
+        return false;
     },
     drawGrass(ctx,left,top,right,bottom,random){
-        for(let i=0;i<130;i++){
+        for(let i=0;i<260;i++){
             const x=left+random()*(right-left);
             const y=top+random()*(bottom-top);
-            if(Math.abs(x-(left+right)/2)<130&&Math.abs(y-(top+bottom)/2)<90)continue;
-            const size=3+random()*5;
-            ctx.fillStyle=random()>.5?"#3d493b":"#303a31";
-            ctx.fillRect(x,y-size,size*.55,size);
-            ctx.fillRect(x+size*.45,y-size*.7,size*.55,size*.7);
+            if(this.blocked(x-(left+right)/2,y-(top+bottom)/2))continue;
+            const size=3+random()*6;
+            ctx.fillStyle=random()>.5?"#3f4c3e":"#354136";
+            ctx.fillRect(x,y-size,size*.45,size);
+            ctx.fillRect(x+size*.4,y-size*.65,size*.4,size*.65);
+            if(random()>.72){
+                ctx.fillStyle="#4b5847";
+                ctx.fillRect(x+size*.8,y-size*.85,size*.3,size*.55);
+            }
         }
+    },
+    drawBushZones(ctx,left,top,right,bottom,random){
+        const zones=[
+            [left+70,top+85,150,100],
+            [right-80,top+80,150,100],
+            [left+90,bottom-65,180,80],
+            [right-100,bottom-65,180,80]
+        ];
+        zones.forEach((zone)=>{
+            for(let i=0;i<9;i++){
+                const x=zone[0]+(random()-.5)*zone[2];
+                const y=zone[1]+(random()-.5)*zone[3];
+                if(this.blocked(x-(left+right)/2,y-(top+bottom)/2))continue;
+                this.drawBush(ctx,x,y,random);
+            }
+        });
+    },
+    drawBush(ctx,x,y,random){
+        const s=7+random()*9;
+        ctx.fillStyle="#1d241f";
+        ctx.fillRect(x-s,y-s*.35,s*2,s);
+        ctx.fillRect(x-s*.55,y-s,s*1.1,s);
+        ctx.fillStyle="#354335";
+        ctx.fillRect(x-s*.72,y-s*.28,s*.8,s*.5);
+        ctx.fillRect(x-s*.05,y-s*.72,s*.9,s*.58);
+        ctx.fillStyle="#4a5747";
+        ctx.fillRect(x-s*.38,y-s*.52,s*.32,s*.22);
+    },
+    drawForestZones(ctx,left,top,right,bottom,random){
+        const zones=[
+            [left+55,top+55,110,160],
+            [right-55,top+55,110,160],
+            [left+70,bottom-45,130,90],
+            [right-70,bottom-45,130,90]
+        ];
+        zones.forEach((zone)=>{
+            for(let i=0;i<6;i++){
+                const x=zone[0]+(random()-.5)*zone[2];
+                const y=zone[1]+(random()-.5)*zone[3];
+                if(this.blocked(x-(left+right)/2,y-(top+bottom)/2))continue;
+                this.drawTree(ctx,x,y,.8+random()*.35);
+            }
+        });
+    },
+    drawTree(ctx,x,y,scale){
+        ctx.fillStyle="#171b18";
+        ctx.fillRect(x-6*scale,y-3*scale,12*scale,43*scale);
+        ctx.fillStyle="#493b2d";
+        ctx.fillRect(x-4*scale,y-1*scale,8*scale,40*scale);
+        ctx.fillStyle="#222a24";
+        ctx.fillRect(x-25*scale,y-42*scale,50*scale,37*scale);
+        ctx.fillRect(x-20*scale,y-59*scale,40*scale,25*scale);
+        ctx.fillRect(x-10*scale,y-72*scale,20*scale,19*scale);
+        ctx.fillStyle="#384738";
+        ctx.fillRect(x-21*scale,y-38*scale,42*scale,27*scale);
+        ctx.fillRect(x-16*scale,y-54*scale,32*scale,22*scale);
+        ctx.fillRect(x-7*scale,y-65*scale,14*scale,15*scale);
+        ctx.fillStyle="#4a5847";
+        ctx.fillRect(x-14*scale,y-43*scale,10*scale,7*scale);
+        ctx.fillRect(x+5*scale,y-55*scale,8*scale,6*scale);
     },
     drawRocks(ctx,left,top,right,bottom,random){
-        for(let i=0;i<28;i++){
+        for(let i=0;i<45;i++){
             const x=left+random()*(right-left);
             const y=top+random()*(bottom-top);
-            if(Math.abs(x-(left+right)/2)<140&&Math.abs(y-(top+bottom)/2)<100)continue;
-            this.drawRock(ctx,x,y,random);
+            if(this.blocked(x-(left+right)/2,y-(top+bottom)/2))continue;
+            const s=4+random()*9;
+            ctx.fillStyle="#1d2220";
+            ctx.fillRect(x-s,y-s*.4,s*2,s);
+            ctx.fillStyle="#3b423e";
+            ctx.fillRect(x-s*.6,y-s*.65,s*1.25,s*.5);
+            ctx.fillStyle="#505650";
+            ctx.fillRect(x-s*.3,y-s*.52,s*.5,s*.2);
         }
-    },
-    drawRock(ctx,x,y,random){
-        const size=4+random()*8;
-        ctx.fillStyle="#202522";
-        ctx.fillRect(x-size,y-size*.45,size*2,size);
-        ctx.fillStyle="#3a403c";
-        ctx.fillRect(x-size*.65,y-size*.65,size*1.2,size*.55);
-        ctx.fillStyle="#4a504b";
-        ctx.fillRect(x-size*.35,y-size*.55,size*.55,size*.2);
     }
 };
 window.KAVRYXSettlementNature=SettlementNature;
