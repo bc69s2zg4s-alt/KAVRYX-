@@ -6,21 +6,22 @@ const SettlementWater={
         const top=centerY-55;
         const right=left+size;
         const bottom=top+size*.7;
-        this.drawPond(ctx,left+110,top+145,150,82);
-        this.drawPond(ctx,right-125,bottom-70,115,62);
+        this.drawPond(ctx,left+95,top+85,105,58);
+        this.drawPond(ctx,right-95,bottom-55,105,58);
+        this.drawPond(ctx,left+105,bottom-105,75,42);
     },
     drawPond(ctx,x,y,width,height){
-        ctx.fillStyle="#121716";
-        ctx.fillRect(x-width/2-9,y-height/2-9,width+18,height+18);
+        ctx.fillStyle="#101514";
+        ctx.fillRect(x-width/2-7,y-height/2-7,width+14,height+14);
         ctx.fillStyle="#514b3c";
-        ctx.fillRect(x-width/2-5,y-height/2-5,width+10,height+10);
+        ctx.fillRect(x-width/2-4,y-height/2-4,width+8,height+8);
         ctx.fillStyle="#263b3c";
         ctx.fillRect(x-width/2,y-height/2,width,height);
         ctx.fillStyle="#304b4b";
-        ctx.fillRect(x-width*.36,y-height*.25,width*.65,6);
-        ctx.fillRect(x-width*.18,y-height*.4,width*.4,4);
+        ctx.fillRect(x-width*.35,y-height*.25,width*.65,5);
+        ctx.fillRect(x-width*.15,y-height*.4,width*.38,4);
         ctx.fillStyle="#3d5b58";
-        ctx.fillRect(x-width*.3,y+height*.2,width*.48,4);
+        ctx.fillRect(x-width*.3,y+height*.2,width*.5,4);
         ctx.fillStyle="#182a2b";
         ctx.fillRect(x-width*.42,y-height*.05,width*.22,5);
         ctx.fillRect(x+width*.2,y+height*.1,width*.18,4);
