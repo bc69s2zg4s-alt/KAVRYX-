@@ -7,24 +7,18 @@ const SettlementDecor={
         const top=centerY-55;
         const right=left+size;
         const bottom=top+size*.7;
-        this.drawOuterFence(ctx,left+18,top+30,right-18,bottom-18);
-        this.drawEntrance(ctx,centerX,bottom-28);
+        this.drawOuterFence(ctx,left+12,top+12,right-12,bottom-12,centerX);
         this.drawWorkAreas(ctx,left,top,right,bottom);
         this.drawStorageAreas(ctx,left,top,right,bottom);
-        this.drawCamp(ctx,centerX+170,centerY+70);
+        this.drawCamp(ctx,centerX+175,centerY+80);
         this.drawLights(ctx,left,top,right,bottom);
     },
-    blocked(x,y){
-        if(Math.abs(x)<150&&Math.abs(y)<105)return true;
-        if(Math.abs(y-110)<58&&Math.abs(x)<410)return true;
-        if(Math.abs(x)<58&&y>-250&&y<160)return true;
-        if(x>250&&y<-40)return true;
-        if(x<-280&&y<-10)return true;
-        return false;
-    },
-    drawOuterFence(ctx,left,top,right,bottom){
+    drawOuterFence(ctx,left,top,right,bottom,centerX){
+        const gateLeft=centerX-48;
+        const gateRight=centerX+48;
         ctx.fillStyle="#171917";
         for(let x=left;x<right;x+=42){
+            if(x>gateLeft-8&&x<gateRight+8)continue;
             ctx.fillRect(x,top,7,27);
             ctx.fillRect(x,bottom-22,7,22);
         }
@@ -33,10 +27,12 @@ const SettlementDecor={
             ctx.fillRect(right-7,y,7,27);
         }
         ctx.fillStyle="#493c2c";
-        ctx.fillRect(left,top+5,right-left,5);
+        ctx.fillRect(left,top+5,gateLeft-left,5);
+        ctx.fillRect(gateRight,top+5,right-gateRight,5);
         ctx.fillRect(left,bottom-20,right-left,5);
         ctx.fillRect(left,top,5,bottom-top);
         ctx.fillRect(right-5,top,5,bottom-top);
+        this.drawEntrance(ctx,centerX,bottom);
     },
     drawEntrance(ctx,x,y){
         ctx.fillStyle="#171917";
@@ -51,14 +47,26 @@ const SettlementDecor={
         ctx.fillStyle="#1c1e1b";
         ctx.fillRect(x-39,y-35,78,6);
     },
+    blocked(x,y){
+        if(Math.abs(x)<115&&Math.abs(y-95)<78)return true;
+        if(Math.abs(x+230)<85&&Math.abs(y-110)<82)return true;
+        if(Math.abs(x-230)<85&&Math.abs(y-120)<82)return true;
+        if(Math.abs(x-330)<70&&Math.abs(y+120)<120)return true;
+        if(Math.abs(x+350)<90&&Math.abs(y+90)<85)return true;
+        if(Math.abs(y-110)<32&&Math.abs(x)<410)return true;
+        if(Math.abs(x)<28&&y>-250&&y<160)return true;
+        return false;
+    },
     drawWorkAreas(ctx,left,top,right,bottom){
         const points=[
-            [left+135,top+180],
-            [right-165,top+175],
-            [left+275,bottom-70]
+            [left+130,top+230],
+            [right-130,top+225],
+            [left+250,bottom-55]
         ];
         points.forEach((point)=>{
-            if(this.blocked(point[0]-(left+right)/2,point[1]-(top+bottom)/2))return;
+            const x=point[0]-(left+right)/2;
+            const y=point[1]-(top+bottom)/2;
+            if(this.blocked(x,y))return;
             this.drawWorkbench(ctx,point[0],point[1]);
         });
     },
@@ -75,13 +83,15 @@ const SettlementDecor={
     },
     drawStorageAreas(ctx,left,top,right,bottom){
         const points=[
-            [left+90,bottom-95],
-            [right-90,bottom-115],
-            [right-235,top+100],
-            [left+220,bottom-45]
+            [left+90,bottom-70],
+            [right-90,bottom-80],
+            [right-220,top+100],
+            [left+220,bottom-35]
         ];
         points.forEach((point,index)=>{
-            if(this.blocked(point[0]-(left+right)/2,point[1]-(top+bottom)/2))return;
+            const x=point[0]-(left+right)/2;
+            const y=point[1]-(top+bottom)/2;
+            if(this.blocked(x,y))return;
             if(index%2===0)this.drawCrates(ctx,point[0],point[1]);
             else this.drawBarrels(ctx,point[0],point[1]);
         });
@@ -131,7 +141,12 @@ const SettlementDecor={
             [left+310,bottom-55],
             [right-310,bottom-55]
         ];
-        points.forEach((point)=>this.drawLamp(ctx,point[0],point[1]));
+        points.forEach((point)=>{
+            const x=point[0]-(left+right)/2;
+            const y=point[1]-(top+bottom)/2;
+            if(this.blocked(x,y))return;
+            this.drawLamp(ctx,point[0],point[1]);
+        });
     },
     drawLamp(ctx,x,y){
         ctx.fillStyle="#171918";
