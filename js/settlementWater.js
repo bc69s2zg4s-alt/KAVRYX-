@@ -1,25 +1,24 @@
 "use strict";
 const SettlementWater={
     draw(ctx,width,height,centerX,centerY){
-        const size=Math.min(width*.95,820);
-        const left=centerX-size/2;
-        const top=centerY-55;
-        const right=left+size;
-        const bottom=top+size*.7;
-        this.drawPond(ctx,left+95,top+85,105,58);
-        this.drawPond(ctx,right-95,bottom-55,105,58);
-        this.drawPond(ctx,left+105,bottom-105,75,42);
+        const map=window.KAVRYXSettlementMap;
+        if(!map)return;
+        map.water.forEach((pond)=>this.drawPond(ctx,pond));
     },
-    drawPond(ctx,x,y,width,height){
+    drawPond(ctx,pond){
+        const x=pond.x;
+        const y=pond.y;
+        const width=pond.w;
+        const height=pond.h;
         ctx.fillStyle="#101514";
-        ctx.fillRect(x-width/2-7,y-height/2-7,width+14,height+14);
+        ctx.fillRect(x-width/2-8,y-height/2-8,width+16,height+16);
         ctx.fillStyle="#514b3c";
         ctx.fillRect(x-width/2-4,y-height/2-4,width+8,height+8);
         ctx.fillStyle="#263b3c";
         ctx.fillRect(x-width/2,y-height/2,width,height);
         ctx.fillStyle="#304b4b";
         ctx.fillRect(x-width*.35,y-height*.25,width*.65,5);
-        ctx.fillRect(x-width*.15,y-height*.4,width*.38,4);
+        ctx.fillRect(x-width*.12,y-height*.4,width*.4,4);
         ctx.fillStyle="#3d5b58";
         ctx.fillRect(x-width*.3,y+height*.2,width*.5,4);
         ctx.fillStyle="#182a2b";
