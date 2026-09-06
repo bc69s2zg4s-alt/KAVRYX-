@@ -90,11 +90,6 @@ const SettlementGround={
         ctx.fillStyle="#101312";
         ctx.fillRect(map.left,map.top,map.width,5);
         ctx.fillRect(map.left,map.bottom-5,map.width,5);
-        for(let x=map.left+10;x<map.right;x+=52){
-            ctx.fillStyle="#343a35";
-            ctx.fillRect(x,map.top+9,28,6);
-            ctx.fillRect(x,map.bottom-20,28,6);
-        }
     }
 };
 window.KAVRYXSettlementGround=SettlementGround;
