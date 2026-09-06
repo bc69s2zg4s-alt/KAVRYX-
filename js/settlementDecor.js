@@ -1,24 +1,24 @@
 "use strict";
 const SettlementDecor={
-    seed:5621,
     draw(ctx,width,height,centerX,centerY){
-        const size=Math.min(width*.95,820);
-        const left=centerX-size/2;
-        const top=centerY-55;
-        const right=left+size;
-        const bottom=top+size*.7;
-        this.drawOuterFence(ctx,left+12,top+12,right-12,bottom-12,centerX);
-        this.drawWorkAreas(ctx,left,top,right,bottom);
-        this.drawStorageAreas(ctx,left,top,right,bottom);
-        this.drawCamp(ctx,centerX+175,centerY+80);
-        this.drawLights(ctx,left,top,right,bottom);
+        const map=window.KAVRYXSettlementMap;
+        if(!map)return;
+        this.drawOuterFence(ctx,map);
+        this.drawWorkAreas(ctx,map);
+        this.drawStorageAreas(ctx,map);
+        this.drawCamp(ctx,175,205);
+        this.drawLights(ctx,map);
     },
-    drawOuterFence(ctx,left,top,right,bottom,centerX){
-        const gateLeft=centerX-48;
-        const gateRight=centerX+48;
+    drawOuterFence(ctx,map){
+        const left=map.left+12;
+        const right=map.right-12;
+        const top=map.top+12;
+        const bottom=map.bottom-12;
+        const gateLeft=-55;
+        const gateRight=55;
         ctx.fillStyle="#171917";
         for(let x=left;x<right;x+=42){
-            if(x>gateLeft-8&&x<gateRight+8)continue;
+            if(x>gateLeft-10&&x<gateRight+10)continue;
             ctx.fillRect(x,top,7,27);
             ctx.fillRect(x,bottom-22,7,22);
         }
@@ -27,12 +27,12 @@ const SettlementDecor={
             ctx.fillRect(right-7,y,7,27);
         }
         ctx.fillStyle="#493c2c";
-        ctx.fillRect(left,top+5,gateLeft-left,5);
-        ctx.fillRect(gateRight,top+5,right-gateRight,5);
-        ctx.fillRect(left,bottom-20,right-left,5);
+        ctx.fillRect(left,top+5,right-left,5);
+        ctx.fillRect(left,bottom-20,gateLeft-left,5);
+        ctx.fillRect(gateRight,bottom-20,right-gateRight,5);
         ctx.fillRect(left,top,5,bottom-top);
         ctx.fillRect(right-5,top,5,bottom-top);
-        this.drawEntrance(ctx,centerX,bottom);
+        this.drawEntrance(ctx,0,bottom);
     },
     drawEntrance(ctx,x,y){
         ctx.fillStyle="#171917";
@@ -47,26 +47,14 @@ const SettlementDecor={
         ctx.fillStyle="#1c1e1b";
         ctx.fillRect(x-39,y-35,78,6);
     },
-    blocked(x,y){
-        if(Math.abs(x)<115&&Math.abs(y-95)<78)return true;
-        if(Math.abs(x+230)<85&&Math.abs(y-110)<82)return true;
-        if(Math.abs(x-230)<85&&Math.abs(y-120)<82)return true;
-        if(Math.abs(x-330)<70&&Math.abs(y+120)<120)return true;
-        if(Math.abs(x+350)<90&&Math.abs(y+90)<85)return true;
-        if(Math.abs(y-110)<32&&Math.abs(x)<410)return true;
-        if(Math.abs(x)<28&&y>-250&&y<160)return true;
-        return false;
-    },
-    drawWorkAreas(ctx,left,top,right,bottom){
+    drawWorkAreas(ctx,map){
         const points=[
-            [left+130,top+230],
-            [right-130,top+225],
-            [left+250,bottom-55]
+            [-105,-115],
+            [110,-120],
+            [-300,175]
         ];
         points.forEach((point)=>{
-            const x=point[0]-(left+right)/2;
-            const y=point[1]-(top+bottom)/2;
-            if(this.blocked(x,y))return;
+            if(map.blocked(point[0],point[1],35))return;
             this.drawWorkbench(ctx,point[0],point[1]);
         });
     },
@@ -81,17 +69,15 @@ const SettlementDecor={
         ctx.fillRect(x-16,y-10,12,4);
         ctx.fillRect(x+3,y-10,14,4);
     },
-    drawStorageAreas(ctx,left,top,right,bottom){
+    drawStorageAreas(ctx,map){
         const points=[
-            [left+90,bottom-70],
-            [right-90,bottom-80],
-            [right-220,top+100],
-            [left+220,bottom-35]
+            [-400,180],
+            [400,125],
+            [400,-35],
+            [-100,220]
         ];
         points.forEach((point,index)=>{
-            const x=point[0]-(left+right)/2;
-            const y=point[1]-(top+bottom)/2;
-            if(this.blocked(x,y))return;
+            if(map.blocked(point[0],point[1],35))return;
             if(index%2===0)this.drawCrates(ctx,point[0],point[1]);
             else this.drawBarrels(ctx,point[0],point[1]);
         });
@@ -134,17 +120,15 @@ const SettlementDecor={
         ctx.fillStyle="#d0a454";
         ctx.fillRect(x-5,y-17,10,12);
     },
-    drawLights(ctx,left,top,right,bottom){
+    drawLights(ctx,map){
         const points=[
-            [left+205,top+185],
-            [right-205,top+185],
-            [left+310,bottom-55],
-            [right-310,bottom-55]
+            [-390,-25],
+            [390,-25],
+            [-300,215],
+            [300,215]
         ];
         points.forEach((point)=>{
-            const x=point[0]-(left+right)/2;
-            const y=point[1]-(top+bottom)/2;
-            if(this.blocked(x,y))return;
+            if(map.blocked(point[0],point[1],20))return;
             this.drawLamp(ctx,point[0],point[1]);
         });
     },
