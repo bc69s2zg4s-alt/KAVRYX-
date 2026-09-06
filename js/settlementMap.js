@@ -16,17 +16,20 @@ const SettlementMap={
         {x:-350,y:-90,w:180,h:170}
     ],
     roads:[
-        {x:-470,y:65,w:940,h:42},
-        {x:-15,y:-270,w:30,h:335},
-        {x:-350,y:-90,w:365,h:30},
-        {x:15,y:-120,w:315,h:30},
-        {x:-230,y:100,w:230,h:30},
-        {x:0,y:105,w:230,h:30}
+        {x:0,y:170,w:900,h:42},
+        {x:0,y:-105,w:34,h:530},
+        {x:-350,y:95,w:34,h:150},
+        {x:330,y:95,w:34,h:150},
+        {x:-230,y:150,w:34,h:40},
+        {x:230,y:150,w:34,h:40}
     ],
     water:[
         {x:-380,y:-190,w:120,h:75},
         {x:380,y:190,w:120,h:75},
         {x:-350,y:210,w:90,h:55}
+    ],
+    gates:[
+        {x:0,y:258,w:100,h:35}
     ],
     inside(x,y,padding=0){
         return x>=this.left+padding&&x<=this.right-padding&&y>=this.top+padding&&y<=this.bottom-padding;
@@ -42,6 +45,9 @@ const SettlementMap={
     },
     inWater(x,y,padding=0){
         return this.water.some((rect)=>this.inRect(x,y,rect,padding));
+    },
+    inGate(x,y,padding=0){
+        return this.gates.some((rect)=>this.inRect(x,y,rect,padding));
     },
     blocked(x,y,padding=0){
         return !this.inside(x,y,padding)||this.inBuildings(x,y,padding)||this.inRoads(x,y,padding)||this.inWater(x,y,padding);
